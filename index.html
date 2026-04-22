@@ -561,7 +561,9 @@ section.bg-gray { background: #F5F5F7; }
 /* ---- Pricing ---- */
 .pricing-note { text-align: center; font-size: 14px; color: #8A8F9C; margin: 16px auto 0; max-width: 600px; }
 .pricing-subhead { font-family: var(--font-display); font-weight: 700; font-size: 22px; color: #0B0B0F; letter-spacing: -0.02em; margin: 56px 0 20px; text-align: center; }
-.pricing-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; align-items: stretch; }
+.pricing-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; align-items: stretch; max-width: 1200px; margin: 0 auto; }
+.pricing-grid.cols-1 { grid-template-columns: minmax(0, 420px); justify-content: center; }
+.pricing-grid.cols-2 { grid-template-columns: repeat(2, minmax(0, 440px)); justify-content: center; }
 .price-card {
   background: #F5F5F7; border-radius: 18px; padding: 28px 24px;
   display: flex; flex-direction: column; position: relative; transition: transform .2s;
@@ -587,8 +589,8 @@ section.bg-gray { background: #F5F5F7; }
 .price-badge.pop { background: #E5FF4E; color: #3B1A8A; }
 .p-name { font-family: var(--font-display); font-weight: 700; font-size: 20px; color: #0B0B0F; letter-spacing: -0.02em; }
 .p-subname { font-size: 13px; color: #8A8F9C; font-weight: 500; margin-top: 2px; }
-.p-price { font-family: var(--font-display); font-weight: 900; font-size: 48px; color: #0B0B0F; letter-spacing: -0.04em; line-height: 1; margin-top: 18px; }
-.p-price .per { font-size: 14px; font-weight: 700; color: #525768; }
+.p-price { font-family: var(--font-display); font-weight: 900; font-size: 40px; color: #0B0B0F; letter-spacing: -0.035em; line-height: 1; margin-top: 18px; white-space: nowrap; }
+.p-price .per { font-size: 14px; font-weight: 700; color: #525768; margin-left: 6px; letter-spacing: 0; }
 .p-dur { font-size: 13px; color: #8A8F9C; margin-top: 4px; font-weight: 500; }
 .p-feats { list-style: none; padding: 0; margin: 22px 0 22px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
 .p-feat { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; line-height: 1.4; }
@@ -646,7 +648,7 @@ section.bg-gray { background: #F5F5F7; }
   .explainer-grid, .kam-grid, .makonai-grid { grid-template-columns: 1fr; gap: 28px; }
   .three-col, .feature-grid, .stats-row, .guarantee-grid, .path-grid, .pricing-grid, .testimonial-grid, .social-bar { grid-template-columns: 1fr 1fr; }
   .feature-grid, .stats-row { gap: 20px 16px; }
-  .pricing-grid { grid-template-columns: 1fr; }
+  .pricing-grid, .pricing-grid.cols-1, .pricing-grid.cols-2 { grid-template-columns: 1fr; justify-content: stretch; max-width: 420px; }
   .price-card.recommended { transform: none; }
   .makonai-feats { grid-template-columns: 1fr; }
   .students-grid { grid-template-columns: 1fr 1fr; }
@@ -1103,37 +1105,32 @@ window.COPY = {
       eyebrow: "NARXLAR",
       h: ["Rejangizni", "toping"],
       note: "Barcha tariflar makon.ai to'liq obunasini o'z ichiga oladi.",
+      preSatTitle: "PRE-SAT kurslari",
       satTitle: "SAT kurslari",
       apTitle: "AP kurslari",
       rec: "TAVSIYA", pop: "MASHHUR",
       enroll: "Yozilish",
-      per: "/oy",
-      foot: "* Ball kafolati uchun boshlang'ich ball 1100+ bo'lishi shart. To'liq shartlar konsultatsiyada aytiladi.",
+      per: "so'm",
+      foot: "* To'liq shartlar va chegirmalar bepul konsultatsiyada muhokama qilinadi.",
+      preSat: [
+        { name:"Bir fan", sub:"Matematika yoki Ingliz tili", price:"900 000", dur:"2–3 oy", feats:[
+          ["✓","Haftasiga jonli darslar"],["✓","makon.ai to'liq obuna"],["✓","Mock testlar va tahlil"],["✓","Shaxsiy o'quv rejasi"],
+        ]},
+        { name:"Ikki fan", sub:"Matematika + Ingliz tili", price:"1 700 000", dur:"2–3 oy", recommended: true, feats:[
+          ["✓","Ikkala fan bo'yicha to'liq kurs"],["✓","makon.ai to'liq obuna"],["✓","Mock testlar va tahlil"],["✓","Shaxsiy o'quv rejasi"],["✓","SAT ga o'tishga tayyorgarlik"],
+        ]},
+      ],
       sat: [
-        { name:"Standart", price:"$349", dur:"3–5 oy", feats:[
-          ["✓","8 soat jonli dars"],["✓","makon.ai to'liq obuna"],["✓","60+ mock test"],["✓","Shaxsiy o'quv rejasi"],
-          ["✗","Pul qaytarish kafolati"],["✗","Ball kafolati"],
+        { name:"Bir fan", sub:"Matematika yoki Ingliz tili", price:"900 000", dur:"3–5 oy", feats:[
+          ["✓","Haftasiga jonli darslar"],["✓","makon.ai to'liq obuna"],["✓","60+ mock test"],["✓","Shaxsiy o'quv rejasi"],
         ]},
-        { name:"Booster", price:"$599", dur:"2–4 oy", feats:[
-          ["✓","16 soat jonli dars"],["✓","makon.ai to'liq obuna"],["✓","60+ mock test"],["✓","Shaxsiy o'quv rejasi"],["✓","Esse tekshiruvi"],
-          ["✗","Pul qaytarish kafolati"],["✗","1520+ kafolati"],
-        ]},
-        { name:"Elite 1520", price:"$899", dur:"2–3 oy", recommended: true, feats:[
-          ["✓","16 soat jonli dars"],["✓","makon.ai to'liq obuna"],["✓","60+ mock test"],["✓","Shaxsiy o'quv rejasi"],["✓","Esse tekshiruvi"],
-          ["✓","Pul qaytarish kafolati"],["✓","1520+ ball kafolati"],["✓","Qabul arizasiga yordam"],
+        { name:"Ikki fan", sub:"Matematika + Ingliz tili", price:"1 700 000", dur:"3–5 oy", recommended: true, feats:[
+          ["✓","Ikkala fan bo'yicha to'liq kurs"],["✓","makon.ai to'liq obuna"],["✓","60+ mock test"],["✓","Shaxsiy o'quv rejasi"],["✓","Esse tekshiruvi"],["✓","Qabul arizasiga yordam"],
         ]},
       ],
       ap: [
-        { name:"AP Starter", sub:"1 ta fan", price:"$199", dur:"2–3 oy", feats:[
-          ["✓","Haftasiga 2 dars"],["✓","10+ AP mock test"],["✓","Shaxsiy o'quv rejasi"],["✓","makon.ai kirish"],
-          ["✗","Ball kafolati"],
-        ]},
-        { name:"AP Elite", sub:"2–3 ta fan", price:"$349", dur:"2–4 oy", feats:[
-          ["✓","Har fan uchun haftada 2 dars"],["✓","20+ mock (har fan)"],["✓","Shaxsiy strategiya"],["✓","makon.ai kirish"],["✓","Esse va free-response tekshiruvi"],
-          ["✗","Ball kafolati"],
-        ]},
-        { name:"AP + SAT Combo", sub:"SAT + 2 AP", price:"$799", dur:"3–4 oy", popular: true, feats:[
-          ["✓","SAT + 2 AP birgalikda"],["✓","16 soat SAT + AP mashg'ulotlari"],["✓","60+ SAT + 20+ AP mock"],["✓","makon.ai to'liq obuna"],["✓","Esse tekshiruvi"],["✓","Qabulga to'liq yordam"],["✓","SAT 1480+ kafolati"],
+        { name:"AP kurs", sub:"Bitta AP fan", price:"1 000 000", dur:"2–4 oy", feats:[
+          ["✓","Haftasiga jonli darslar"],["✓","10+ AP mock test"],["✓","Shaxsiy o'quv rejasi"],["✓","makon.ai kirish"],["✓","Esse va free-response tekshiruvi"],
         ]},
       ],
     },
@@ -1266,37 +1263,32 @@ window.COPY = {
       eyebrow: "ЦЕНЫ",
       h: ["Найдите", "Ваш план"],
       note: "Все тарифы включают полную подписку makon.ai.",
+      preSatTitle: "Курсы PRE-SAT",
       satTitle: "Курсы SAT",
       apTitle: "Курсы AP",
       rec: "РЕКОМЕНДУЕМ", pop: "ПОПУЛЯРНЫЙ",
       enroll: "Записаться",
-      per: "/мес",
-      foot: "* Для гарантии балла стартовый результат должен быть 1100+. Полные условия — на консультации.",
+      per: "сум",
+      foot: "* Полные условия и скидки обсуждаются на бесплатной консультации.",
+      preSat: [
+        { name:"Один предмет", sub:"Математика или Английский", price:"900 000", dur:"2–3 мес", feats:[
+          ["✓","Живые занятия каждую неделю"],["✓","Полная подписка makon.ai"],["✓","Мок-тесты и аналитика"],["✓","Персональный план"],
+        ]},
+        { name:"Два предмета", sub:"Математика + Английский", price:"1 700 000", dur:"2–3 мес", recommended: true, feats:[
+          ["✓","Полный курс по обоим предметам"],["✓","Полная подписка makon.ai"],["✓","Мок-тесты и аналитика"],["✓","Персональный план"],["✓","Подготовка к переходу на SAT"],
+        ]},
+      ],
       sat: [
-        { name:"Стандарт", price:"$349", dur:"3–5 мес", feats:[
-          ["✓","8 часов живых уроков"],["✓","makon.ai полная подписка"],["✓","60+ мок-тестов"],["✓","Персональный план"],
-          ["✗","Гарантия возврата"],["✗","Гарантия балла"],
+        { name:"Один предмет", sub:"Математика или Английский", price:"900 000", dur:"3–5 мес", feats:[
+          ["✓","Живые занятия каждую неделю"],["✓","Полная подписка makon.ai"],["✓","60+ мок-тестов"],["✓","Персональный план"],
         ]},
-        { name:"Booster", price:"$599", dur:"2–4 мес", feats:[
-          ["✓","16 часов живых уроков"],["✓","makon.ai полная подписка"],["✓","60+ мок-тестов"],["✓","Персональный план"],["✓","Проверка эссе"],
-          ["✗","Гарантия возврата"],["✗","Гарантия 1520+"],
-        ]},
-        { name:"Elite 1520", price:"$899", dur:"2–3 мес", recommended: true, feats:[
-          ["✓","16 часов живых уроков"],["✓","makon.ai полная подписка"],["✓","60+ мок-тестов"],["✓","Персональный план"],["✓","Проверка эссе"],
-          ["✓","Гарантия возврата"],["✓","Гарантия 1520+"],["✓","Помощь с заявкой"],
+        { name:"Два предмета", sub:"Математика + Английский", price:"1 700 000", dur:"3–5 мес", recommended: true, feats:[
+          ["✓","Полный курс по обоим предметам"],["✓","Полная подписка makon.ai"],["✓","60+ мок-тестов"],["✓","Персональный план"],["✓","Проверка эссе"],["✓","Помощь с заявкой"],
         ]},
       ],
       ap: [
-        { name:"AP Starter", sub:"1 предмет", price:"$199", dur:"2–3 мес", feats:[
-          ["✓","2 урока в неделю"],["✓","10+ мок-тестов AP"],["✓","Персональный план"],["✓","Доступ к makon.ai"],
-          ["✗","Гарантия балла"],
-        ]},
-        { name:"AP Elite", sub:"2–3 предмета", price:"$349", dur:"2–4 мес", feats:[
-          ["✓","2 урока в неделю на предмет"],["✓","20+ мок на предмет"],["✓","Персональная стратегия"],["✓","Доступ к makon.ai"],["✓","Проверка эссе и free-response"],
-          ["✗","Гарантия балла"],
-        ]},
-        { name:"AP + SAT Combo", sub:"SAT + 2 AP", price:"$799", dur:"3–4 мес", popular: true, feats:[
-          ["✓","SAT + 2 AP в одной программе"],["✓","16 часов SAT + AP"],["✓","60+ SAT + 20+ AP мок"],["✓","makon.ai полная подписка"],["✓","Проверка эссе"],["✓","Полная помощь с заявкой"],["✓","Гарантия SAT 1480+"],
+        { name:"Курс AP", sub:"Один AP-предмет", price:"1 000 000", dur:"2–4 мес", feats:[
+          ["✓","Живые занятия каждую неделю"],["✓","10+ мок-тестов AP"],["✓","Персональный план"],["✓","Доступ к makon.ai"],["✓","Проверка эссе и free-response"],
         ]},
       ],
     },
@@ -1975,14 +1967,18 @@ function PricingSection({
     }
   }, p.h[1])), /*#__PURE__*/React.createElement("p", {
     className: "pricing-note"
-  }, p.note)), /*#__PURE__*/React.createElement("div", {
+  }, p.note)), p.preSat && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    className: "pricing-subhead"
+  }, p.preSatTitle), /*#__PURE__*/React.createElement("div", {
+    className: "pricing-grid cols-" + p.preSat.length
+  }, p.preSat.map(renderCard))), /*#__PURE__*/React.createElement("div", {
     className: "pricing-subhead"
   }, p.satTitle), /*#__PURE__*/React.createElement("div", {
-    className: "pricing-grid"
+    className: "pricing-grid cols-" + p.sat.length
   }, p.sat.map(renderCard)), /*#__PURE__*/React.createElement("div", {
     className: "pricing-subhead"
   }, p.apTitle), /*#__PURE__*/React.createElement("div", {
-    className: "pricing-grid"
+    className: "pricing-grid cols-" + p.ap.length
   }, p.ap.map(renderCard)), /*#__PURE__*/React.createElement("div", {
     className: "pricing-foot"
   }, p.foot)));
