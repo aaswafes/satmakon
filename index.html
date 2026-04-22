@@ -646,6 +646,7 @@ section.bg-gray { background: #F5F5F7; }
   flex-direction: column;
   gap: 10px;
   padding-top: 18px;
+  margin-top: auto;
   border-top: 1px solid rgba(0,0,0,0.08);
 }
 .tier {
@@ -1257,13 +1258,6 @@ window.COPY = {
           name: "PRE-SAT",
           sub: "Universitetga dastlabki tayyorgarlik",
           dur: "2–3 oy",
-          desc: "SAT ga ko'niktiruvchi dasturi — erta asos qo'yiladi, vaqt va ball birgalikda o'sadi.",
-          feats: [
-            "Haftasiga jonli darslar",
-            "makon.ai to'liq obuna",
-            "Mock testlar va tahlil",
-            "Shaxsiy o'quv rejasi",
-          ],
           tiers: [
             { label: "1 fan (Math yoki Eng)", price: "900 000" },
             { label: "2 fan (Math + Eng)", price: "1 700 000", recommended: true },
@@ -1273,14 +1267,6 @@ window.COPY = {
           name: "SAT",
           sub: "Asosiy tayyorlov dasturi",
           dur: "3–5 oy",
-          desc: "Top universitetlarga kirish uchun yuqori balga yo'naltirilgan to'liq kurs.",
-          feats: [
-            "Haftasiga jonli darslar",
-            "makon.ai to'liq obuna",
-            "60+ mock test",
-            "Esse tekshiruvi",
-            "Qabul arizasiga yordam",
-          ],
           tiers: [
             { label: "1 fan (Math yoki Eng)", price: "900 000" },
             { label: "2 fan (Math + Eng)", price: "1 700 000", recommended: true },
@@ -1290,14 +1276,6 @@ window.COPY = {
           name: "AP",
           sub: "Advanced Placement fanlari",
           dur: "2–4 oy",
-          desc: "Universitet darajasidagi fanlar bo'yicha imtihonlar — kredit va arizani kuchaytirish.",
-          feats: [
-            "Haftasiga jonli darslar",
-            "10+ AP mock test",
-            "Shaxsiy o'quv rejasi",
-            "makon.ai kirish",
-            "Free-response tekshiruvi",
-          ],
           tiers: [
             { label: "Bitta AP fan", price: "1 000 000" },
           ],
@@ -1442,13 +1420,6 @@ window.COPY = {
           name: "PRE-SAT",
           sub: "Начальная подготовка к SAT",
           dur: "2–3 мес",
-          desc: "Ранний старт — фундамент к SAT, время и балл растут вместе.",
-          feats: [
-            "Живые занятия каждую неделю",
-            "Полная подписка makon.ai",
-            "Мок-тесты и аналитика",
-            "Персональный план",
-          ],
           tiers: [
             { label: "1 предмет (Math или Eng)", price: "900 000" },
             { label: "2 предмета (Math + Eng)", price: "1 700 000", recommended: true },
@@ -1458,14 +1429,6 @@ window.COPY = {
           name: "SAT",
           sub: "Основная программа подготовки",
           dur: "3–5 мес",
-          desc: "Полный курс, нацеленный на высокий балл и поступление в топ-вузы.",
-          feats: [
-            "Живые занятия каждую неделю",
-            "Полная подписка makon.ai",
-            "60+ мок-тестов",
-            "Проверка эссе",
-            "Помощь с заявкой",
-          ],
           tiers: [
             { label: "1 предмет (Math или Eng)", price: "900 000" },
             { label: "2 предмета (Math + Eng)", price: "1 700 000", recommended: true },
@@ -1475,14 +1438,6 @@ window.COPY = {
           name: "AP",
           sub: "Advanced Placement",
           dur: "2–4 мес",
-          desc: "Экзамены университетского уровня — кредит и усиление заявки.",
-          feats: [
-            "Живые занятия каждую неделю",
-            "10+ мок-тестов AP",
-            "Персональный план",
-            "Доступ к makon.ai",
-            "Проверка free-response",
-          ],
           tiers: [
             { label: "Один AP-предмет", price: "1 000 000" },
           ],
@@ -2148,17 +2103,9 @@ function PricingSection({
     className: "course-name"
   }, c.name), /*#__PURE__*/React.createElement("div", {
     className: "course-sub"
-  }, c.sub)), /*#__PURE__*/React.createElement("div", {
+  }, c.sub), /*#__PURE__*/React.createElement("div", {
     className: "course-dur"
-  }, c.dur), /*#__PURE__*/React.createElement("p", {
-    className: "course-desc"
-  }, c.desc), /*#__PURE__*/React.createElement("ul", {
-    className: "course-feats"
-  }, c.feats.map((f, j) => /*#__PURE__*/React.createElement("li", {
-    key: j
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "mark"
-  }, "\u2713"), /*#__PURE__*/React.createElement("span", null, f)))), /*#__PURE__*/React.createElement("div", {
+  }, c.dur)), /*#__PURE__*/React.createElement("div", {
     className: "course-tiers"
   }, c.tiers.map((tr, j) => /*#__PURE__*/React.createElement("div", {
     key: j,
