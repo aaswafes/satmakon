@@ -558,7 +558,150 @@ section.bg-gray { background: #F5F5F7; }
 .path-card p { font-size: 13px; line-height: 1.55; color: #525768; margin: 0; }
 .path-card.highlight p { color: rgba(255,255,255,0.9); }
 
-/* ---- Pricing ---- */
+/* ---- Pricing (3-course cards) ---- */
+.course-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin: 56px auto 0;
+  max-width: 1200px;
+  align-items: stretch;
+}
+.course-card {
+  background: #fff;
+  border: 1px solid var(--border-1);
+  border-radius: 22px;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  position: relative;
+}
+.course-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 48px rgba(17,17,20,0.08);
+  border-color: #C4B5FD;
+}
+.course-head { display: flex; flex-direction: column; gap: 4px; }
+.course-name {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 34px;
+  color: var(--fg-1);
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+.course-sub {
+  font-size: 13px;
+  color: var(--brand-primary);
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+.course-dur {
+  font-size: 11px;
+  color: var(--fg-4);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.course-desc {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--fg-3);
+  margin: 0;
+}
+.course-feats {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+.course-feats li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--fg-2);
+}
+.course-feats .mark {
+  flex: 0 0 18px;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: var(--brand-tint);
+  color: var(--brand-primary);
+  display: grid;
+  place-items: center;
+  font-size: 10px;
+  font-weight: 800;
+  margin-top: 1px;
+}
+.course-tiers {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(0,0,0,0.08);
+}
+.tier {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: transparent;
+  transition: background .15s;
+  position: relative;
+}
+.tier.rec {
+  background: linear-gradient(90deg, rgba(124,58,237,0.10), rgba(124,58,237,0.04));
+  border: 1px solid rgba(124,58,237,0.25);
+}
+.tier-badge {
+  position: absolute;
+  top: -9px;
+  right: 12px;
+  background: var(--brand-primary);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  padding: 3px 9px;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+.tier-label {
+  font-size: 13px;
+  color: var(--fg-2);
+  font-weight: 500;
+}
+.tier-price {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 18px;
+  color: var(--fg-1);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+.tier.rec .tier-price { color: var(--brand-primary); }
+.tier-price span {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--fg-4);
+  margin-left: 4px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+@media (max-width: 880px) {
+  .course-grid { grid-template-columns: 1fr; max-width: 480px; }
+}
+
 .pricing-note { text-align: center; font-size: 14px; color: #8A8F9C; margin: 16px auto 0; max-width: 600px; }
 .pricing-subhead { font-family: var(--font-display); font-weight: 700; font-size: 22px; color: #0B0B0F; letter-spacing: -0.02em; margin: 56px 0 20px; text-align: center; }
 .pricing-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; align-items: stretch; max-width: 1200px; margin: 0 auto; }
@@ -1105,33 +1248,60 @@ window.COPY = {
       eyebrow: "NARXLAR",
       h: ["Rejangizni", "toping"],
       note: "Barcha tariflar makon.ai to'liq obunasini o'z ichiga oladi.",
-      preSatTitle: "PRE-SAT kurslari",
-      satTitle: "SAT kurslari",
-      apTitle: "AP kurslari",
-      rec: "TAVSIYA", pop: "MASHHUR",
+      rec: "TAVSIYA",
       enroll: "Yozilish",
       per: "so'm",
       foot: "* To'liq shartlar va chegirmalar bepul konsultatsiyada muhokama qilinadi.",
-      preSat: [
-        { name:"Bir fan", sub:"Matematika yoki Ingliz tili", price:"900 000", dur:"2–3 oy", feats:[
-          ["✓","Haftasiga jonli darslar"],["✓","makon.ai to'liq obuna"],["✓","Mock testlar va tahlil"],["✓","Shaxsiy o'quv rejasi"],
-        ]},
-        { name:"Ikki fan", sub:"Matematika + Ingliz tili", price:"1 700 000", dur:"2–3 oy", recommended: true, feats:[
-          ["✓","Ikkala fan bo'yicha to'liq kurs"],["✓","makon.ai to'liq obuna"],["✓","Mock testlar va tahlil"],["✓","Shaxsiy o'quv rejasi"],["✓","SAT ga o'tishga tayyorgarlik"],
-        ]},
-      ],
-      sat: [
-        { name:"Bir fan", sub:"Matematika yoki Ingliz tili", price:"900 000", dur:"3–5 oy", feats:[
-          ["✓","Haftasiga jonli darslar"],["✓","makon.ai to'liq obuna"],["✓","60+ mock test"],["✓","Shaxsiy o'quv rejasi"],
-        ]},
-        { name:"Ikki fan", sub:"Matematika + Ingliz tili", price:"1 700 000", dur:"3–5 oy", recommended: true, feats:[
-          ["✓","Ikkala fan bo'yicha to'liq kurs"],["✓","makon.ai to'liq obuna"],["✓","60+ mock test"],["✓","Shaxsiy o'quv rejasi"],["✓","Esse tekshiruvi"],["✓","Qabul arizasiga yordam"],
-        ]},
-      ],
-      ap: [
-        { name:"AP kurs", sub:"Bitta AP fan", price:"1 000 000", dur:"2–4 oy", feats:[
-          ["✓","Haftasiga jonli darslar"],["✓","10+ AP mock test"],["✓","Shaxsiy o'quv rejasi"],["✓","makon.ai kirish"],["✓","Esse va free-response tekshiruvi"],
-        ]},
+      courses: [
+        {
+          name: "PRE-SAT",
+          sub: "Universitetga dastlabki tayyorgarlik",
+          dur: "2–3 oy",
+          desc: "SAT ga ko'niktiruvchi dasturi — erta asos qo'yiladi, vaqt va ball birgalikda o'sadi.",
+          feats: [
+            "Haftasiga jonli darslar",
+            "makon.ai to'liq obuna",
+            "Mock testlar va tahlil",
+            "Shaxsiy o'quv rejasi",
+          ],
+          tiers: [
+            { label: "1 fan (Math yoki Eng)", price: "900 000" },
+            { label: "2 fan (Math + Eng)", price: "1 700 000", recommended: true },
+          ],
+        },
+        {
+          name: "SAT",
+          sub: "Asosiy tayyorlov dasturi",
+          dur: "3–5 oy",
+          desc: "Top universitetlarga kirish uchun yuqori balga yo'naltirilgan to'liq kurs.",
+          feats: [
+            "Haftasiga jonli darslar",
+            "makon.ai to'liq obuna",
+            "60+ mock test",
+            "Esse tekshiruvi",
+            "Qabul arizasiga yordam",
+          ],
+          tiers: [
+            { label: "1 fan (Math yoki Eng)", price: "900 000" },
+            { label: "2 fan (Math + Eng)", price: "1 700 000", recommended: true },
+          ],
+        },
+        {
+          name: "AP",
+          sub: "Advanced Placement fanlari",
+          dur: "2–4 oy",
+          desc: "Universitet darajasidagi fanlar bo'yicha imtihonlar — kredit va arizani kuchaytirish.",
+          feats: [
+            "Haftasiga jonli darslar",
+            "10+ AP mock test",
+            "Shaxsiy o'quv rejasi",
+            "makon.ai kirish",
+            "Free-response tekshiruvi",
+          ],
+          tiers: [
+            { label: "Bitta AP fan", price: "1 000 000" },
+          ],
+        },
       ],
     },
     faq: {
@@ -1263,33 +1433,60 @@ window.COPY = {
       eyebrow: "ЦЕНЫ",
       h: ["Найдите", "Ваш план"],
       note: "Все тарифы включают полную подписку makon.ai.",
-      preSatTitle: "Курсы PRE-SAT",
-      satTitle: "Курсы SAT",
-      apTitle: "Курсы AP",
-      rec: "РЕКОМЕНДУЕМ", pop: "ПОПУЛЯРНЫЙ",
+      rec: "РЕКОМЕНДУЕМ",
       enroll: "Записаться",
       per: "сум",
       foot: "* Полные условия и скидки обсуждаются на бесплатной консультации.",
-      preSat: [
-        { name:"Один предмет", sub:"Математика или Английский", price:"900 000", dur:"2–3 мес", feats:[
-          ["✓","Живые занятия каждую неделю"],["✓","Полная подписка makon.ai"],["✓","Мок-тесты и аналитика"],["✓","Персональный план"],
-        ]},
-        { name:"Два предмета", sub:"Математика + Английский", price:"1 700 000", dur:"2–3 мес", recommended: true, feats:[
-          ["✓","Полный курс по обоим предметам"],["✓","Полная подписка makon.ai"],["✓","Мок-тесты и аналитика"],["✓","Персональный план"],["✓","Подготовка к переходу на SAT"],
-        ]},
-      ],
-      sat: [
-        { name:"Один предмет", sub:"Математика или Английский", price:"900 000", dur:"3–5 мес", feats:[
-          ["✓","Живые занятия каждую неделю"],["✓","Полная подписка makon.ai"],["✓","60+ мок-тестов"],["✓","Персональный план"],
-        ]},
-        { name:"Два предмета", sub:"Математика + Английский", price:"1 700 000", dur:"3–5 мес", recommended: true, feats:[
-          ["✓","Полный курс по обоим предметам"],["✓","Полная подписка makon.ai"],["✓","60+ мок-тестов"],["✓","Персональный план"],["✓","Проверка эссе"],["✓","Помощь с заявкой"],
-        ]},
-      ],
-      ap: [
-        { name:"Курс AP", sub:"Один AP-предмет", price:"1 000 000", dur:"2–4 мес", feats:[
-          ["✓","Живые занятия каждую неделю"],["✓","10+ мок-тестов AP"],["✓","Персональный план"],["✓","Доступ к makon.ai"],["✓","Проверка эссе и free-response"],
-        ]},
+      courses: [
+        {
+          name: "PRE-SAT",
+          sub: "Начальная подготовка к SAT",
+          dur: "2–3 мес",
+          desc: "Ранний старт — фундамент к SAT, время и балл растут вместе.",
+          feats: [
+            "Живые занятия каждую неделю",
+            "Полная подписка makon.ai",
+            "Мок-тесты и аналитика",
+            "Персональный план",
+          ],
+          tiers: [
+            { label: "1 предмет (Math или Eng)", price: "900 000" },
+            { label: "2 предмета (Math + Eng)", price: "1 700 000", recommended: true },
+          ],
+        },
+        {
+          name: "SAT",
+          sub: "Основная программа подготовки",
+          dur: "3–5 мес",
+          desc: "Полный курс, нацеленный на высокий балл и поступление в топ-вузы.",
+          feats: [
+            "Живые занятия каждую неделю",
+            "Полная подписка makon.ai",
+            "60+ мок-тестов",
+            "Проверка эссе",
+            "Помощь с заявкой",
+          ],
+          tiers: [
+            { label: "1 предмет (Math или Eng)", price: "900 000" },
+            { label: "2 предмета (Math + Eng)", price: "1 700 000", recommended: true },
+          ],
+        },
+        {
+          name: "AP",
+          sub: "Advanced Placement",
+          dur: "2–4 мес",
+          desc: "Экзамены университетского уровня — кредит и усиление заявки.",
+          feats: [
+            "Живые занятия каждую неделю",
+            "10+ мок-тестов AP",
+            "Персональный план",
+            "Доступ к makon.ai",
+            "Проверка free-response",
+          ],
+          tiers: [
+            { label: "Один AP-предмет", price: "1 000 000" },
+          ],
+        },
       ],
     },
     faq: {
@@ -1917,33 +2114,6 @@ function PricingSection({
   t
 }) {
   const p = t.pricing;
-  const renderCard = (plan, i) => /*#__PURE__*/React.createElement("div", {
-    key: i,
-    className: "price-card" + (plan.recommended ? " recommended" : "") + (plan.popular ? " popular" : "")
-  }, plan.recommended && /*#__PURE__*/React.createElement("div", {
-    className: "price-badge rec"
-  }, p.rec), plan.popular && /*#__PURE__*/React.createElement("div", {
-    className: "price-badge pop"
-  }, p.pop), /*#__PURE__*/React.createElement("div", {
-    className: "p-name"
-  }, plan.name), plan.sub && /*#__PURE__*/React.createElement("div", {
-    className: "p-subname"
-  }, plan.sub), /*#__PURE__*/React.createElement("div", {
-    className: "p-price"
-  }, plan.price, /*#__PURE__*/React.createElement("span", {
-    className: "per"
-  }, p.per)), /*#__PURE__*/React.createElement("div", {
-    className: "p-dur"
-  }, plan.dur), /*#__PURE__*/React.createElement("ul", {
-    className: "p-feats"
-  }, plan.feats.map(([mk, txt], j) => /*#__PURE__*/React.createElement("li", {
-    key: j,
-    className: "p-feat" + (mk === '✗' ? " no" : "")
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "mark"
-  }, mk), /*#__PURE__*/React.createElement("span", null, txt)))), /*#__PURE__*/React.createElement("button", {
-    className: "p-cta"
-  }, p.enroll));
   return /*#__PURE__*/React.createElement("section", {
     className: "bg-gray",
     id: "pricing"
@@ -1967,19 +2137,41 @@ function PricingSection({
     }
   }, p.h[1])), /*#__PURE__*/React.createElement("p", {
     className: "pricing-note"
-  }, p.note)), p.preSat && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
-    className: "pricing-subhead"
-  }, p.preSatTitle), /*#__PURE__*/React.createElement("div", {
-    className: "pricing-grid cols-" + p.preSat.length
-  }, p.preSat.map(renderCard))), /*#__PURE__*/React.createElement("div", {
-    className: "pricing-subhead"
-  }, p.satTitle), /*#__PURE__*/React.createElement("div", {
-    className: "pricing-grid cols-" + p.sat.length
-  }, p.sat.map(renderCard)), /*#__PURE__*/React.createElement("div", {
-    className: "pricing-subhead"
-  }, p.apTitle), /*#__PURE__*/React.createElement("div", {
-    className: "pricing-grid cols-" + p.ap.length
-  }, p.ap.map(renderCard)), /*#__PURE__*/React.createElement("div", {
+  }, p.note)), /*#__PURE__*/React.createElement("div", {
+    className: "course-grid"
+  }, p.courses.map((c, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    className: "course-card"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "course-head"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "course-name"
+  }, c.name), /*#__PURE__*/React.createElement("div", {
+    className: "course-sub"
+  }, c.sub)), /*#__PURE__*/React.createElement("div", {
+    className: "course-dur"
+  }, c.dur), /*#__PURE__*/React.createElement("p", {
+    className: "course-desc"
+  }, c.desc), /*#__PURE__*/React.createElement("ul", {
+    className: "course-feats"
+  }, c.feats.map((f, j) => /*#__PURE__*/React.createElement("li", {
+    key: j
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "mark"
+  }, "\u2713"), /*#__PURE__*/React.createElement("span", null, f)))), /*#__PURE__*/React.createElement("div", {
+    className: "course-tiers"
+  }, c.tiers.map((tr, j) => /*#__PURE__*/React.createElement("div", {
+    key: j,
+    className: "tier" + (tr.recommended ? " rec" : "")
+  }, tr.recommended && /*#__PURE__*/React.createElement("div", {
+    className: "tier-badge"
+  }, p.rec), /*#__PURE__*/React.createElement("div", {
+    className: "tier-label"
+  }, tr.label), /*#__PURE__*/React.createElement("div", {
+    className: "tier-price"
+  }, tr.price, /*#__PURE__*/React.createElement("span", null, p.per))))), /*#__PURE__*/React.createElement("button", {
+    className: "p-cta"
+  }, p.enroll)))), /*#__PURE__*/React.createElement("div", {
     className: "pricing-foot"
   }, p.foot)));
 }
