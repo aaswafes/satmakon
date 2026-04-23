@@ -217,6 +217,7 @@ section.bg-gray { background: #F5F5F7; }
   letter-spacing: -0.005em;
   border-radius: 8px;
   transition: color .15s, background .15s;
+  margin-right: -24px;
 }
 .nav-location:hover { color: #7C3AED; background: rgba(124,58,237,0.06); }
 .nav-location svg { color: #7C3AED; flex: none; }
@@ -228,8 +229,8 @@ section.bg-gray { background: #F5F5F7; }
 .lang button.on { color: #0B0B0F; font-weight: 600; }
 .lang .sep { color: #D6D6DC; font-weight: 300; font-size: 13px; }
 
-.nav-cta { background: #7C3AED; color: #fff; border: 0; padding: 10px 18px; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; letter-spacing: -0.005em; transition: background .15s; }
-.nav-cta:hover { background: #6D28D9; }
+.nav-cta { background: #7C3AED; color: #fff; border: 0; padding: 10px 18px; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; letter-spacing: -0.005em; transition: background .15s; display: inline-flex; align-items: center; text-decoration: none; }
+.nav-cta:hover { background: #6D28D9; color: #fff; }
 
 .nav-mobile-toggle { display: none; }
 
@@ -315,8 +316,9 @@ section.bg-gray { background: #F5F5F7; }
     cursor: pointer;
     font-family: inherit;
     transition: background .15s;
+    display: block; text-align: center; text-decoration: none;
   }
-  .nav-mobile-cta:hover { background: #6D28D9; }
+  .nav-mobile-cta:hover { background: #6D28D9; color: #fff; }
 }
 
 /* ---- Shared ---- */
@@ -906,7 +908,7 @@ section.bg-gray { background: #F5F5F7; }
 .price-card.popular .p-feat.no .mark { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.3); }
 .price-card.popular .p-feat.no span { color: rgba(255,255,255,0.4); }
 
-.p-cta { width: 100%; padding: 13px; border-radius: 999px; border: 0; cursor: pointer; font-family: var(--font-body); font-weight: 700; font-size: 14px; background: #0B0B0F; color: #fff; transition: background .15s; }
+.p-cta { width: 100%; padding: 13px; border-radius: 999px; border: 0; cursor: pointer; font-family: var(--font-body); font-weight: 700; font-size: 14px; background: #0B0B0F; color: #fff; transition: background .15s; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; box-sizing: border-box; }
 .p-cta:hover { background: #1F2430; }
 .price-card.recommended .p-cta { background: #7C3AED; }
 .price-card.recommended .p-cta:hover { background: #6D28D9; }
@@ -1741,8 +1743,11 @@ function Nav({
   }, "\xB7"), /*#__PURE__*/React.createElement("button", {
     className: lang === 'ru' ? 'on' : '',
     onClick: () => setLang('ru')
-  }, "\u0420\u0443\u0441\u0441\u043A\u0438\u0439")), /*#__PURE__*/React.createElement("button", {
-    className: "nav-cta"
+  }, "\u0420\u0443\u0441\u0441\u043A\u0438\u0439")), /*#__PURE__*/React.createElement("a", {
+    className: "nav-cta",
+    href: "https://t.me/satmakonn_bot",
+    target: "_blank",
+    rel: "noopener noreferrer"
   }, t.nav.cta), /*#__PURE__*/React.createElement("button", {
     className: "nav-burger" + (menuOpen ? " open" : ""),
     onClick: () => setMenuOpen(!menuOpen),
@@ -1779,8 +1784,11 @@ function Nav({
       setLang('ru');
       close();
     }
-  }, "\u0420\u0443\u0441\u0441\u043A\u0438\u0439")), /*#__PURE__*/React.createElement("button", {
+  }, "\u0420\u0443\u0441\u0441\u043A\u0438\u0439")), /*#__PURE__*/React.createElement("a", {
     className: "nav-mobile-cta",
+    href: "https://t.me/satmakonn_bot",
+    target: "_blank",
+    rel: "noopener noreferrer",
     onClick: close
   }, t.nav.cta)));
 }
@@ -1801,10 +1809,14 @@ function Hero({
     }
   }, t.hero.sub), /*#__PURE__*/React.createElement("div", {
     className: "cta-row"
-  }, /*#__PURE__*/React.createElement("button", {
-    className: "btn btn-primary"
-  }, t.hero.cta1), /*#__PURE__*/React.createElement("button", {
-    className: "btn btn-secondary"
+  }, /*#__PURE__*/React.createElement("a", {
+    className: "btn btn-primary",
+    href: "https://t.me/satmakonn_bot",
+    target: "_blank",
+    rel: "noopener noreferrer"
+  }, t.hero.cta1), /*#__PURE__*/React.createElement("a", {
+    className: "btn btn-secondary",
+    href: "#pricing"
   }, t.hero.cta2)), /*#__PURE__*/React.createElement("div", {
     className: "social-row"
   }, /*#__PURE__*/React.createElement("div", {
@@ -2367,8 +2379,11 @@ function PricingSection({
     className: "tier-label"
   }, tr.label), /*#__PURE__*/React.createElement("div", {
     className: "tier-price"
-  }, tr.price, /*#__PURE__*/React.createElement("span", null, p.per))))), /*#__PURE__*/React.createElement("button", {
-    className: "p-cta"
+  }, tr.price, /*#__PURE__*/React.createElement("span", null, p.per))))), /*#__PURE__*/React.createElement("a", {
+    className: "p-cta",
+    href: "https://t.me/satmakonn_bot",
+    target: "_blank",
+    rel: "noopener noreferrer"
   }, p.enroll)))), /*#__PURE__*/React.createElement("div", {
     className: "pricing-foot"
   }, p.foot)));
