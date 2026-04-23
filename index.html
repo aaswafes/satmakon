@@ -349,9 +349,29 @@ section.bg-gray { background: #F5F5F7; }
 .hero .cta-row { display: flex; gap: 14px; margin-top: 32px; flex-wrap: wrap; }
 .social-row { display: flex; align-items: center; gap: 14px; margin-top: 28px; font-size: 13px; color: #525768; flex-wrap: wrap; }
 .avatars { display: flex; }
-.avatars .a { width: 32px; height: 32px; border-radius: 999px; border: 2px solid #fff; background: linear-gradient(135deg,#A78BFA,#7C3AED); margin-left: -8px; }
+.avatars .a {
+  width: 36px; height: 36px;
+  border-radius: 999px;
+  border: 2px solid #fff;
+  background-color: #4C1D95;
+  background-image: linear-gradient(135deg,#A78BFA,#7C3AED);
+  background-size: cover;
+  background-position: center 18%;
+  background-repeat: no-repeat;
+  margin-left: -8px;
+  box-shadow: 0 2px 6px rgba(17,17,20,0.12);
+}
 .avatars .a:first-child { margin-left: 0; }
-.avatars .more { background: #7C3AED; color: #fff; font-size: 10px; font-weight: 700; display: grid; place-items: center; }
+.avatars .more {
+  background-image: none !important;
+  background: #7C3AED;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  letter-spacing: -0.02em;
+}
 
 .stats-row {
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
@@ -1362,7 +1382,7 @@ window.COPY = {
       sub: "Yutuqli arizaning har bir ustunini qamrab olamiz.",
       steps: [
         { n: "01", t: "GPA",                  s: "O'quv odatlari",       b: "Strukturlangan rejalar va vaqt boshqaruvi orqali mustahkam akademik poydevor." },
-        { n: "02", t: "SAT va AP bali",       s: "Elite 1520 dasturi",   b: "Isbotlangan metodologiya va 1520+ kafolati bilan top foizli SAT natijasi." },
+        { n: "02", t: "SAT va AP bali",       s: "Yuqori ball dasturi",   b: "Isbotlangan metodologiya bilan top foizli SAT natijasi." },
         { n: "03", t: "Ariza",                s: "Qabulga yordam",       b: "Ta'sirchan esse, ko'zga tashlanadigan ariza, top maktablar uchun strategik tanlov." },
         { n: "04", t: "Qo'shimcha faoliyat",  s: "Profil qurish",        b: "Yetakchilik va ko'zga ko'rinadigan yutuqlar bilan har tomonlama profil." },
       ],
@@ -1408,7 +1428,7 @@ window.COPY = {
       h: ["Ko'p beriladigan", "savollar"],
       items: [
         { q:"SAT va AP orasidagi farq nima?", a:"SAT — universitetga kirish standart testi (400–1600). AP — alohida fanlar bo'yicha universitet darajasidagi imtihonlar (1–5). Ikkalasi ham arizani kuchaytiradi va stipendiyaga olib keladi." },
-        { q:"Qaysi ball bilan kursga qo'shilish mumkin?", a:"1520+ kafolati uchun boshlang'ich ball 1100+ bo'lishi kerak. Past bo'lsa ham yordam bera olamiz — bepul konsultatsiyada gaplashamiz." },
+        { q:"Qaysi ball bilan kursga qo'shilish mumkin?", a:"Har qanday boshlang'ich ball bilan yordam bera olamiz — bepul konsultatsiyada gaplashamiz." },
         { q:"Darslar qanday formatda o'tadi?", a:"Barcha darslar onlayn, 5 kishilik guruhda. Individual e'tibor, real vaqtda tahlil va makon.ai da qo'shimcha mashqlar." },
         { q:"AP imtihonlari qachon?", a:"Har yil may oyida — College Board sanalari bo'yicha. Tayyorgarlikni 3–4 oy oldin boshlash — eng to'g'risi." },
         { q:"Toshkentdan yoki boshqa shahardan o'qish mumkinmi?", a:"Albatta. Barcha kurslar 100% onlayn — dunyoning istalgan nuqtasidan qo'shiling." },
@@ -1527,7 +1547,7 @@ window.COPY = {
       sub: "Мы покрываем каждый столп успешной заявки.",
       steps: [
         { n: "01", t: "GPA",                       s: "Учебные привычки",        b: "Прочный академический фундамент через структурированные планы и тайм-менеджмент." },
-        { n: "02", t: "Балл SAT и AP",             s: "Программа Elite 1520",    b: "Топ-процентильный результат SAT по проверенной методике и с гарантией 1520+." },
+        { n: "02", t: "Балл SAT и AP",             s: "Программа высоких баллов",    b: "Топ-процентильный результат SAT по проверенной методике." },
         { n: "03", t: "Заявка",                    s: "Помощь с поступлением",   b: "Убедительные эссе, заметная заявка, стратегический выбор топ-школ." },
         { n: "04", t: "Внеучебная деятельность",   s: "Построение профиля",      b: "Лидерство и видимые достижения, формирующие всесторонний профиль." },
       ],
@@ -1573,7 +1593,7 @@ window.COPY = {
       h: ["Частые", "вопросы"],
       items: [
         { q:"В чём разница между SAT и AP?", a:"SAT — стандартизированный вступительный тест (400–1600). AP — экзамены по отдельным предметам университетского уровня (1–5). И то, и другое усиливает заявку и открывает стипендии." },
-        { q:"С каким баллом можно записаться на курс?", a:"Для гарантии 1520+ стартовый балл должен быть 1100+. Если ниже — мы тоже поможем, обсудим на бесплатной консультации." },
+        { q:"С каким баллом можно записаться на курс?", a:"Поможем с любым стартовым баллом — обсудим на бесплатной консультации." },
         { q:"В каком формате проходят занятия?", a:"Все занятия онлайн, в группах по 5 человек. Индивидуальное внимание, анализ в реальном времени и дополнительные упражнения на makon.ai." },
         { q:"Когда проходят экзамены AP?", a:"Каждый май — по датам College Board. Начинать подготовку лучше за 3–4 месяца." },
         { q:"Можно ли заниматься из Ташкента или другого города?", a:"Конечно. Все курсы 100% онлайн — подключайтесь из любой точки мира." },
@@ -1703,15 +1723,11 @@ function Nav({
 function Hero({
   t
 }) {
+  const heroAvatars = ['students/1-sogdiana.png', 'students/5-aiym.png', 'students/2-javohir.png', 'students/3-maral.png'];
   return /*#__PURE__*/React.createElement("section", {
     className: "hero container"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "eyebrow-pill"
-  }, t.hero.badge), /*#__PURE__*/React.createElement("h1", {
-    className: "h-display",
-    style: {
-      marginTop: 20
-    }
+  }, /*#__PURE__*/React.createElement("h1", {
+    className: "h-display"
   }, t.hero.h1a, /*#__PURE__*/React.createElement("span", {
     className: "a"
   }, t.hero.h1b)), /*#__PURE__*/React.createElement("p", {
@@ -1729,15 +1745,13 @@ function Hero({
     className: "social-row"
   }, /*#__PURE__*/React.createElement("div", {
     className: "avatars"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "a"
-  }), /*#__PURE__*/React.createElement("div", {
-    className: "a"
-  }), /*#__PURE__*/React.createElement("div", {
-    className: "a"
-  }), /*#__PURE__*/React.createElement("div", {
-    className: "a"
-  }), /*#__PURE__*/React.createElement("div", {
+  }, heroAvatars.map((src, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    className: "a",
+    style: {
+      backgroundImage: `url(${src})`
+    }
+  })), /*#__PURE__*/React.createElement("div", {
     className: "a more"
   }, "25K+")), /*#__PURE__*/React.createElement("span", null, t.hero.social)), /*#__PURE__*/React.createElement("div", {
     className: "stats-row"
@@ -2477,8 +2491,6 @@ function App() {
   }), /*#__PURE__*/React.createElement(SatSection, {
     t: t
   }), /*#__PURE__*/React.createElement(ApSection, {
-    t: t
-  }), /*#__PURE__*/React.createElement(GuaranteeSection, {
     t: t
   }), /*#__PURE__*/React.createElement(Students, {
     t: t
