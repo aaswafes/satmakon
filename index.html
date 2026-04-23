@@ -901,7 +901,8 @@ section.bg-gray { background: #F5F5F7; }
 .faq-list { max-width: 820px; margin: 48px auto 0; display: flex; flex-direction: column; gap: 0; border-top: 1px solid rgba(0,0,0,0.08); }
 .faq-item { border-bottom: 1px solid rgba(0,0,0,0.08); }
 .faq-q { width: 100%; background: transparent; border: 0; padding: 22px 0; text-align: left; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-family: var(--font-display); font-weight: 600; font-size: 17px; color: #0B0B0F; letter-spacing: -0.015em; }
-.faq-q .caret { width: 24px; height: 24px; border-radius: 999px; background: #F5F5F7; display: grid; place-items: center; color: #525768; font-size: 14px; transition: transform .2s; flex: none; }
+.faq-q .caret { width: 24px; height: 24px; border-radius: 999px; background: #F5F5F7; display: inline-flex; align-items: center; justify-content: center; color: #525768; transition: transform .2s, background .2s, color .2s; flex: none; }
+.faq-q .caret svg { display: block; }
 .faq-item.open .caret { transform: rotate(45deg); background: #7C3AED; color: #fff; }
 .faq-a { max-height: 0; overflow: hidden; transition: max-height .3s, padding .3s; font-size: 15px; line-height: 1.65; color: #525768; }
 .faq-item.open .faq-a { max-height: 300px; padding: 0 0 22px; }
@@ -1446,7 +1447,7 @@ window.COPY = {
         { q:"Qaysi ball bilan kursga qo'shilish mumkin?", a:"Har qanday boshlang'ich ball bilan yordam bera olamiz — bepul konsultatsiyada gaplashamiz." },
         { q:"Darslar qanday formatda o'tadi?", a:"Ham onlayn, ham oflayn guruhlar mavjud — o'zingizga qulay formatni tanlashingiz mumkin." },
         { q:"AP imtihonlari qachon?", a:"Har yil may oyida — College Board sanalari bo'yicha. Tayyorgarlikni 3–4 oy oldin boshlash — eng to'g'risi." },
-        { q:"Toshkentdan yoki boshqa shahardan o'qish mumkinmi?", a:"Albatta. Barcha kurslar 100% onlayn — dunyoning istalgan nuqtasidan qo'shiling." },
+        { q:"Toshkentdan yoki boshqa shahardan o'qish mumkinmi?", a:"Ha, kurslarimiz onlayn formatda ham mavjud." },
       ],
     },
     finalCTA: {
@@ -1611,7 +1612,7 @@ window.COPY = {
         { q:"С каким баллом можно записаться на курс?", a:"Поможем с любым стартовым баллом — обсудим на бесплатной консультации." },
         { q:"В каком формате проходят занятия?", a:"Есть и онлайн, и офлайн группы — выбираете формат, который удобен Вам." },
         { q:"Когда проходят экзамены AP?", a:"Каждый май — по датам College Board. Начинать подготовку лучше за 3–4 месяца." },
-        { q:"Можно ли заниматься из Ташкента или другого города?", a:"Конечно. Все курсы 100% онлайн — подключайтесь из любой точки мира." },
+        { q:"Можно ли заниматься из Ташкента или другого города?", a:"Да, наши курсы также доступны онлайн." },
       ],
     },
     finalCTA: {
@@ -2353,8 +2354,18 @@ function FaqSection({
     className: "faq-q",
     onClick: () => setOpen(open === i ? -1 : i)
   }, /*#__PURE__*/React.createElement("span", null, it.q), /*#__PURE__*/React.createElement("span", {
-    className: "caret"
-  }, "+")), /*#__PURE__*/React.createElement("div", {
+    className: "caret",
+    "aria-hidden": "true"
+  }, /*#__PURE__*/React.createElement("svg", {
+    viewBox: "0 0 14 14",
+    width: "12",
+    height: "12"
+  }, /*#__PURE__*/React.createElement("path", {
+    d: "M7 2v10M2 7h10",
+    stroke: "currentColor",
+    strokeWidth: "2",
+    strokeLinecap: "round"
+  })))), /*#__PURE__*/React.createElement("div", {
     className: "faq-a"
   }, it.a))))));
 }
