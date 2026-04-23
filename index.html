@@ -646,8 +646,12 @@ section.bg-gray { background: #F5F5F7; }
 
 /* ---- Path to College ---- */
 .path-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-top: 56px; position: relative; }
-.path-card { background: #fff; border: 1px solid #E5E5EA; border-radius: 16px; padding: 24px 20px; text-align: center; position: relative; }
+.path-card { background: #fff; border: 1px solid #E5E5EA; border-radius: 16px; padding: 24px 20px; text-align: center; position: relative; transition: transform .25s cubic-bezier(.2,.7,.3,1), box-shadow .25s cubic-bezier(.2,.7,.3,1), border-color .25s cubic-bezier(.2,.7,.3,1); }
+.path-card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(17,17,20,0.08); border-color: #C4B5FD; }
+.path-card:hover .path-number { border-color: #7C3AED; color: #7C3AED; }
 .path-card.highlight { background: #7C3AED; border-color: #7C3AED; color: #fff; box-shadow: 0 20px 40px rgba(124,58,237,0.25); }
+.path-card.highlight:hover { transform: translateY(-6px); box-shadow: 0 28px 56px rgba(124,58,237,0.35); border-color: #7C3AED; }
+.path-card.highlight:hover .path-number { border-color: #5B21B6; color: #fff; }
 .path-number {
   position: absolute; top: -18px; left: 50%; transform: translateX(-50%);
   width: 36px; height: 36px; border-radius: 999px; background: #fff; border: 2px solid #E5E5EA;
