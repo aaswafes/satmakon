@@ -214,6 +214,92 @@ section.bg-gray { background: #F5F5F7; }
 
 .nav-mobile-toggle { display: none; }
 
+/* ---- Mobile hamburger + dropdown menu ---- */
+.nav-burger { display: none; }
+.nav-mobile { display: none; }
+
+@media (max-width: 880px) {
+  .nav-cta { display: none; }
+  .nav-burger {
+    display: block;
+    background: transparent; border: 0; cursor: pointer;
+    width: 40px; height: 40px; padding: 0;
+    border-radius: 8px;
+    transition: background .15s;
+  }
+  .nav-burger:hover { background: rgba(0,0,0,0.05); }
+  .nav-burger span {
+    display: block;
+    width: 22px; height: 2px;
+    background: #0B0B0F;
+    border-radius: 2px;
+    margin: 5px auto;
+    transition: transform .25s, opacity .25s;
+  }
+  .nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-burger.open span:nth-child(2) { opacity: 0; }
+  .nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .nav-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    padding: 8px 24px 20px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+    transform: translateY(-8px);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform .2s ease, opacity .2s ease;
+  }
+  .nav-mobile.open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .nav-mobile a {
+    color: #0B0B0F;
+    font-family: var(--font-display);
+    font-size: 17px; font-weight: 600;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    padding: 14px 4px;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .nav-mobile-lang {
+    display: flex; align-items: center; gap: 6px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .nav-mobile-lang button {
+    background: transparent; border: 0; padding: 6px 12px;
+    color: #8A8F9C; font-size: 14px; font-weight: 500;
+    cursor: pointer; border-radius: 8px;
+    font-family: inherit;
+    transition: background .15s, color .15s;
+  }
+  .nav-mobile-lang button.on {
+    color: #0B0B0F; font-weight: 700;
+    background: #F5F5F7;
+  }
+  .nav-mobile-lang span { color: #D6D6DC; font-size: 12px; }
+  .nav-mobile-cta {
+    margin-top: 14px; padding: 14px;
+    background: #7C3AED; color: #fff;
+    border: 0; border-radius: 999px;
+    font-size: 15px; font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background .15s;
+  }
+  .nav-mobile-cta:hover { background: #6D28D9; }
+}
+
 /* ---- Shared ---- */
 .eyebrow-pill {
   display: inline-flex; align-items: center; gap: 8px;
@@ -1489,13 +1575,24 @@ function Nav({
   setLang
 }) {
   const t = window.COPY[lang];
+  const [menuOpen, setMenuOpen] = useState(false);
+  const close = () => setMenuOpen(false);
+  React.useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = e => {
+      if (e.key === 'Escape') close();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [menuOpen]);
   return /*#__PURE__*/React.createElement("nav", {
     className: "nav"
   }, /*#__PURE__*/React.createElement("div", {
     className: "nav-inner"
   }, /*#__PURE__*/React.createElement("a", {
     href: "#",
-    className: "brand"
+    className: "brand",
+    onClick: close
   }, /*#__PURE__*/React.createElement("img", {
     src: window.SHIELD_DATA,
     alt: ""
@@ -1525,6 +1622,40 @@ function Nav({
     onClick: () => setLang('ru')
   }, "\u0420\u0443\u0441\u0441\u043A\u0438\u0439")), /*#__PURE__*/React.createElement("button", {
     className: "nav-cta"
+  }, t.nav.cta), /*#__PURE__*/React.createElement("button", {
+    className: "nav-burger" + (menuOpen ? " open" : ""),
+    onClick: () => setMenuOpen(!menuOpen),
+    "aria-label": "Menu",
+    "aria-expanded": menuOpen
+  }, /*#__PURE__*/React.createElement("span", null), /*#__PURE__*/React.createElement("span", null), /*#__PURE__*/React.createElement("span", null))), /*#__PURE__*/React.createElement("div", {
+    className: "nav-mobile" + (menuOpen ? " open" : ""),
+    role: "menu"
+  }, /*#__PURE__*/React.createElement("a", {
+    href: "#sat",
+    onClick: close
+  }, t.nav.sat), /*#__PURE__*/React.createElement("a", {
+    href: "#pricing",
+    onClick: close
+  }, t.nav.pricing), /*#__PURE__*/React.createElement("a", {
+    href: "#faq",
+    onClick: close
+  }, t.nav.faq), /*#__PURE__*/React.createElement("div", {
+    className: "nav-mobile-lang"
+  }, /*#__PURE__*/React.createElement("button", {
+    className: lang === 'uz' ? 'on' : '',
+    onClick: () => {
+      setLang('uz');
+      close();
+    }
+  }, "O'zbek"), /*#__PURE__*/React.createElement("span", null, "\xB7"), /*#__PURE__*/React.createElement("button", {
+    className: lang === 'ru' ? 'on' : '',
+    onClick: () => {
+      setLang('ru');
+      close();
+    }
+  }, "\u0420\u0443\u0441\u0441\u043A\u0438\u0439")), /*#__PURE__*/React.createElement("button", {
+    className: "nav-mobile-cta",
+    onClick: close
   }, t.nav.cta)));
 }
 function Hero({
