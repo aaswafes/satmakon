@@ -375,7 +375,29 @@ section.bg-gray { background: #F5F5F7; }
 .btn-dark:hover { background: #1F2430; }
 
 /* ---- Hero ---- */
-.hero { padding: 80px 0 64px; }
+.hero {
+  padding: 80px 0 64px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -10%;
+  transform: translateY(-50%);
+  width: 56%;
+  max-width: 680px;
+  aspect-ratio: 1 / 1.1;
+  background: url('satmakon-shield.png') no-repeat center / contain;
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 0;
+}
+.hero > * { position: relative; z-index: 1; }
+@media (max-width: 880px) {
+  .hero::before { display: none; }
+}
 .hero .cta-row { display: flex; gap: 14px; margin-top: 32px; flex-wrap: wrap; }
 .social-row { display: flex; align-items: center; gap: 14px; margin-top: 28px; font-size: 13px; color: #525768; flex-wrap: wrap; }
 .avatars { display: flex; }
