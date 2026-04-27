@@ -1035,225 +1035,300 @@ section.bg-gray { background: #F5F5F7; }
 }
 
 /* ==============================================================
-   v3 — BRUTALIST EDITORIAL / TECH MANIFESTO
-   Bold variable display type, sharp corners, alternating black
-   sections, oversized stats, italic accent words.
+   v3 — SOFT GROTESQUE / LIME ACCENT
+   Light-cream backgrounds, generous rounded cards, lime-green CTAs,
+   purple stays as the brand mark only. Decorative dot patterns,
+   geometric scatter shapes, pill nav.
    ============================================================== */
 
 :root {
-  --font-display: "Bricolage Grotesque", "Plus Jakarta Sans", sans-serif;
-  --font-body: "Inter Tight", "Inter", sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Manrope", "Plus Jakarta Sans", sans-serif;
+  --font-body: "Manrope", "Inter", sans-serif;
+  --lime: #DBFF65;
+  --lime-deep: #C7F03A;
+  --cream: #F2F2F4;
+  --ink: #0B0B0F;
 }
-body, html { font-family: var(--font-body); }
+body, html {
+  font-family: var(--font-body);
+  background: var(--cream);
+}
+.page { background: var(--cream); }
 
-/* === DISPLAY TYPE: massive, expressive, italic accents === */
-.h-display {
+/* === DISPLAY TYPE: clean refined grotesque (not super tight) === */
+.h-display, .h-section, .course-name, .faq-q,
+.explain-card h4, .info-card h4, .feature-card h4, .path-card h4 {
   font-family: var(--font-display);
-  font-size: clamp(56px, 8.4vw, 132px);
-  font-weight: 700;
-  font-variation-settings: "wdth" 96, "opsz" 96;
-  line-height: 0.92;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.02em;
 }
-.h-display .a, .h-section .a, .final-cta h2 .a {
-  font-style: italic;
-  font-variation-settings: "wdth" 102, "opsz" 96;
-  font-weight: 600;
-  display: block;
-}
-.h-section {
-  font-family: var(--font-display);
-  font-size: clamp(40px, 5.4vw, 78px);
-  font-weight: 700;
-  font-variation-settings: "wdth" 95, "opsz" 96;
-  line-height: 0.95;
-  letter-spacing: -0.04em;
+.h-display { font-weight: 700; line-height: 1.05; font-size: clamp(44px, 5.6vw, 80px); }
+.h-display .a, .h-section .a, .final-cta h2 .a { color: var(--ink); display: inline; font-style: normal; }
+.h-display .a::after, .h-section .a::after { content: ""; }
+.h-section { font-weight: 700; line-height: 1.05; font-size: clamp(34px, 4.4vw, 56px); }
+
+/* === Sections: rounded white cards on cream bg === */
+section { padding: 64px 0; }
+section.bg-gray { background: transparent; padding: 32px 0; }
+section.bg-gray > .container,
+section:not(.bg-gray):not(.hero):not(.tight) > .container { padding: 56px 56px; }
+section.bg-gray > .container {
+  background: #fff;
+  border-radius: 28px;
+  box-shadow: 0 1px 3px rgba(11,11,15,0.04);
 }
 
-/* Card / explainer titles — bolder, condensed */
-.explain-card h4, .info-card h4, .feature-card h4, .path-card h4, .course-name {
-  font-family: var(--font-display);
-  font-variation-settings: "wdth" 90, "opsz" 36;
-  font-weight: 700;
-  letter-spacing: -0.025em;
-}
-.course-name { font-size: 38px; font-variation-settings: "wdth" 88, "opsz" 96; }
-
-/* === MONO TREATMENT for stat labels, eyebrows, durations === */
-.eyebrow-pill, .stat-lbl, .course-dur, .ms-lbl, .pricing-foot, .uni-label,
-.kam-quote .who .sub, .footer-rights, .testi .sub, .price-card .p-dur {
-  font-family: var(--font-mono);
-  letter-spacing: 0.02em;
-}
+/* === EYEBROW: small black text with lime dot === */
 .eyebrow-pill {
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  padding: 6px 0 6px 18px;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  border-radius: 0;
+  position: relative;
+  backdrop-filter: none;
+}
+.eyebrow-pill::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  left: 0; top: 50%; transform: translateY(-50%);
+  width: 10px; height: 10px;
+  background: var(--lime);
+  border-radius: 999px;
+}
+
+/* === BUTTONS: lime green pills, black ink, arrow on hover === */
+.btn-primary, .nav-cta, .p-cta, .btn.btn-primary {
+  background: var(--lime) !important;
+  color: var(--ink) !important;
+  border: 0;
+  font-weight: 700;
+  letter-spacing: -0.005em;
+  text-transform: none;
+  font-size: 14px;
+  border-radius: 999px;
+  padding: 14px 22px;
+  transition: background .15s, transform .15s;
+}
+.btn-primary:hover, .nav-cta:hover, .p-cta:hover, .btn.btn-primary:hover {
+  background: var(--lime-deep) !important;
+  color: var(--ink) !important;
+  transform: translateY(-1px);
+}
+.btn-secondary {
+  background: transparent;
+  color: var(--ink);
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  padding: 13px 22px;
+  font-weight: 600;
+}
+.btn-secondary:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
+.btn::after { content: " ↗"; font-weight: 700; }
+.btn-secondary::after { content: ""; }
+.nav-cta::after, .p-cta::after { content: " ↗"; }
+
+/* === NAV: pill-shaped active link === */
+.nav { background: rgba(242,242,244,0.85); border-bottom: 0; }
+.nav-links a {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: #525768;
   padding: 8px 14px;
-  background: #0B0B0F;
-  color: #fff;
+  border-radius: 999px;
+  transition: background .15s, color .15s;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.nav-links a:hover { background: rgba(11,11,15,0.06); color: var(--ink); }
+.nav-location { font-family: var(--font-body); text-transform: none; letter-spacing: 0; font-size: 13px; }
+.lang button { font-family: var(--font-body); text-transform: none; letter-spacing: 0; font-size: 13px; border-radius: 999px; }
+
+/* === HERO: keep text-led, slight tilt on the shield watermark === */
+.hero { padding: 80px 0 64px; }
+.hero::before {
+  opacity: 0.10;
+  transform: translateY(-50%) rotate(-12deg);
+  filter: hue-rotate(0deg);
+}
+.hero .h-display { max-width: 900px; }
+.hero .sub { font-size: 18px; color: #525768; max-width: 560px; }
+
+/* Hero scatter: small floating squares like Square Card reference */
+.hero { position: relative; overflow: hidden; }
+.hero::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  top: 18%;
+  right: 4%;
+  width: 360px; height: 360px;
+  background-image:
+    radial-gradient(circle at 12px 12px, var(--lime) 4px, transparent 5px),
+    radial-gradient(circle at 12px 12px, #C4B5FD 4px, transparent 5px);
+  background-size: 32px 32px, 32px 32px;
+  background-position: 0 0, 16px 16px;
+  -webkit-mask: radial-gradient(ellipse at center, #000 30%, transparent 70%);
+          mask: radial-gradient(ellipse at center, #000 30%, transparent 70%);
+  opacity: 0.55;
+}
+@media (max-width: 880px) { .hero::after { display: none; } }
+
+/* === STATS — readable, not brutalist === */
+.stats-row { padding-top: 48px; margin-top: 48px; border-top: 1px solid rgba(11,11,15,0.10); }
+.stat-num { font-family: var(--font-display); font-weight: 800; color: var(--ink); font-size: clamp(34px, 3.4vw, 48px); letter-spacing: -0.03em; }
+.stat-lbl { color: #525768; font-weight: 600; letter-spacing: 0.04em; }
+
+/* === EXPLAIN / INFO CARDS — generous radius, soft === */
+.explain-card, .info-card, .testi, .feature-card, .price-card, .course-card {
+  background: #fff;
+  border: 0;
+  border-radius: 20px;
+  box-shadow: 0 1px 2px rgba(11,11,15,0.04);
+}
+.info-card { padding: 32px; min-height: auto; }
+.testi { border-radius: 20px; }
+.testi::before { display: none; }
+.three-col { gap: 18px; }
+
+/* Info card numbers as lime circle (Path-style) */
+.info-card .num {
+  display: inline-flex;
+  align-items: center; justify-content: center;
+  width: 36px; height: 36px;
+  background: var(--lime);
+  color: var(--ink);
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 14px; font-weight: 700;
+  letter-spacing: 0;
+}
+
+/* === BENEFITS PURPLE CARD: keep purple but generous radius === */
+.benefits-card { border-radius: 24px; }
+.benefits-card .benefits-cta { background: var(--lime); color: var(--ink); border-radius: 999px; }
+.benefits-card .benefits-cta:hover { background: var(--lime-deep); }
+
+/* === PATH cards: lime number bubble, soft === */
+.path-card {
+  background: #fff;
+  border: 0;
+  border-radius: 20px;
+  padding: 36px 24px 28px;
+  box-shadow: 0 1px 2px rgba(11,11,15,0.04);
+}
+.path-card.highlight { background: var(--ink); border: 0; box-shadow: 0 12px 32px rgba(11,11,15,0.18); }
+.path-card.highlight h4 { color: #fff; }
+.path-card.highlight .sub { color: var(--lime); }
+.path-card.highlight p { color: rgba(255,255,255,0.85); }
+.path-number {
+  background: var(--lime);
+  color: var(--ink);
+  border: 0;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 13px;
+  width: 36px; height: 36px;
+}
+.path-card.highlight .path-number { background: var(--lime); color: var(--ink); }
+.path-card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(11,11,15,0.06); border-color: transparent; }
+.path-card:hover .path-number { background: var(--lime-deep); color: var(--ink); border: 0; }
+
+/* === PRICING: soft cards, lime CTA, recommended uses purple to stay on-brand === */
+.course-card { padding: 36px 32px; gap: 20px; }
+.course-card:hover { border: 0; box-shadow: 0 18px 40px rgba(11,11,15,0.06); transform: translateY(-4px); }
+.tier-badge { background: var(--lime); color: var(--ink); border-radius: 999px; font-weight: 700; }
+.tier.rec { background: rgba(124,58,237,0.06); border: 1px solid rgba(124,58,237,0.18); }
+.tier.rec .tier-price { color: #5B21B6; }
+.tier-price span { color: #8A8F9C; }
+.pricing-subhead { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.01em; font-style: normal; }
+
+/* === STUDENT CAROUSEL: keep, but softer radius === */
+.student-img-card { border-radius: 22px; }
+
+/* === FAQ: pill expand button, soft lines === */
+.faq-list { border-top: 1px solid rgba(11,11,15,0.08); }
+.faq-item { border-bottom-color: rgba(11,11,15,0.08); }
+.faq-q { padding: 26px 0; font-weight: 700; font-size: 17px; letter-spacing: -0.01em; }
+.faq-q .caret { background: var(--lime); color: var(--ink); }
+.faq-item.open .caret { background: var(--ink); color: var(--lime); }
+
+/* === Final CTA: black card with lime button === */
+.final-cta {
+  background: var(--ink);
+  border-radius: 32px;
   border: 0;
 }
+.final-cta::before { background: radial-gradient(ellipse at top right, rgba(124,58,237,0.35), transparent 60%); }
+.final-cta h2 .a { color: var(--lime); display: block; }
+.final-cta .btn { background: var(--lime); color: var(--ink); border-radius: 999px; padding: 18px 32px; }
+.final-cta .btn:hover { background: var(--lime-deep); }
 
-/* === MASSIVE STATS — make the numbers the headline === */
-.stat-num {
-  font-family: var(--font-display);
-  font-size: clamp(56px, 7.2vw, 96px);
-  font-weight: 800;
-  font-variation-settings: "wdth" 78, "opsz" 96;
-  line-height: 0.88;
-  letter-spacing: -0.05em;
-  color: #0B0B0F;
+/* === Footer: black, rounded top === */
+.footer {
+  background: var(--ink);
+  color: rgba(255,255,255,0.7);
+  border-top: 0;
+  border-radius: 32px 32px 0 0;
+  margin-top: 32px;
+  padding: 56px 0 40px;
+  position: relative;
 }
-.stats-row { padding-top: 64px; margin-top: 64px; border-top: 2px solid #0B0B0F; }
-.stat-lbl { font-size: 10px; color: #525768; margin-top: 16px; }
+.footer .container { padding: 0 40px; }
+.footer .brand-wm { color: #fff; }
+.footer-links a { color: rgba(255,255,255,0.7); font-family: var(--font-body); text-transform: none; letter-spacing: 0; }
+.footer-links a:hover { color: var(--lime); }
+.footer-rights { color: rgba(255,255,255,0.45); }
+.footer-contact { color: rgba(255,255,255,0.7); font-family: var(--font-body); text-transform: none; letter-spacing: 0; }
+.footer-contact:hover { color: var(--lime); }
+.footer-contact svg { color: var(--lime); }
+.footer-social a { background: rgba(255,255,255,0.08); color: #fff; }
+.footer-social a:hover { background: var(--lime); color: var(--ink); }
 
-/* === SHARP CORNERS — brutalist === */
-.explain-card, .info-card, .testi, .feature-card,
-.price-card, .course-card, .student-img-card, .makonai-preview { border-radius: 6px; }
-.benefits-card, .guard-purple, .guard-gray, .final-cta, .nav { border-radius: 0; }
-.faq-q .caret { border-radius: 0 !important; }
-.faq-item.open .caret { background: #7C3AED !important; }
-
-/* === BUTTONS: rectangular, hard, bold === */
-.btn { border-radius: 0; padding: 18px 32px; font-family: var(--font-mono); font-weight: 500; letter-spacing: 0.02em; text-transform: uppercase; font-size: 13px; }
-.btn-primary { background: #0B0B0F; color: #fff; }
-.btn-primary:hover { background: #7C3AED; }
-.btn-secondary { background: #fff; color: #0B0B0F; border: 2px solid #0B0B0F; padding: 16px 30px; }
-.btn-secondary:hover { background: #0B0B0F; color: #fff; border-color: #0B0B0F; }
-.nav-cta { border-radius: 0; padding: 12px 22px; font-family: var(--font-mono); font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; font-size: 11px; background: #0B0B0F; }
-.nav-cta:hover { background: #7C3AED; color: #fff; }
-.p-cta { border-radius: 0; font-family: var(--font-mono); letter-spacing: 0.06em; text-transform: uppercase; font-size: 12px; padding: 18px; }
-
-/* === BLACK SECTION INVERSION === */
-section.bg-gray { background: #0B0B0F; color: #fff; }
-section.bg-gray .h-section { color: #fff; }
-section.bg-gray .h-section .a { color: #E5FF4E; }
-section.bg-gray .sub, section.bg-gray .pricing-note { color: rgba(255,255,255,0.6); }
-section.bg-gray .eyebrow-pill { background: #fff; color: #0B0B0F; border: 0; }
-section.bg-gray .pricing-foot { color: rgba(255,255,255,0.5); }
-
-/* Course cards on dark */
-section.bg-gray .course-card { background: #1F2430; border: 1px solid rgba(255,255,255,0.08); color: #fff; }
-section.bg-gray .course-card:hover { border-color: #7C3AED; transform: translateY(-4px); box-shadow: 0 20px 48px rgba(124,58,237,0.25); }
-section.bg-gray .course-name { color: #fff; }
-section.bg-gray .course-sub { color: #A78BFA; }
-section.bg-gray .course-dur { color: rgba(255,255,255,0.5); }
-section.bg-gray .course-tiers { border-top-color: rgba(255,255,255,0.1); }
-section.bg-gray .tier-label { color: rgba(255,255,255,0.85); }
-section.bg-gray .tier-price { color: #fff; }
-section.bg-gray .tier-price span { color: rgba(255,255,255,0.5); }
-section.bg-gray .tier.rec { background: rgba(124,58,237,0.18); border-color: rgba(124,58,237,0.45); }
-section.bg-gray .tier.rec .tier-price { color: #E5FF4E; }
-section.bg-gray .p-cta { background: #fff; color: #0B0B0F; }
-section.bg-gray .p-cta:hover { background: #7C3AED; color: #fff; }
-
-/* SAT explainer cards on dark */
-section.bg-gray .explain-card { background: #1F2430; border: 1px solid rgba(255,255,255,0.08); color: #fff; }
-section.bg-gray .explain-card h4 { color: #fff; }
-section.bg-gray .explain-card p { color: rgba(255,255,255,0.65); }
-section.bg-gray .explain-card:hover { border-color: #7C3AED; }
-
-/* Testimonial avatar small ring */
-section.bg-gray .testi { background: #1F2430; border: 1px solid rgba(255,255,255,0.08); color: #fff; }
-section.bg-gray .testi:hover { border-color: #7C3AED; box-shadow: 0 20px 48px rgba(124,58,237,0.25); }
-section.bg-gray .testi .q { color: #fff; }
-section.bg-gray .testi .name { color: #fff; }
-section.bg-gray .testi .who { border-top-color: rgba(255,255,255,0.08); }
-
-/* === GIANT QUOTE MARK on testimonials === */
-.testi { position: relative; padding-top: 56px; }
-.testi::before {
-  content: "\201C";
+/* === Decorative dotted background pattern in info-card layout === */
+.three-col { position: relative; }
+.three-col::before {
+  content: "";
   position: absolute;
-  top: -12px; left: 18px;
-  font-family: var(--font-display);
-  font-variation-settings: "wdth" 100;
-  font-size: 110px;
-  font-weight: 800;
-  color: #7C3AED;
-  line-height: 1;
+  bottom: -28px; left: 16px;
+  width: 90px; height: 16px;
+  background-image: radial-gradient(circle at 4px 4px, rgba(124,58,237,0.4) 2px, transparent 2.5px);
+  background-size: 12px 8px;
   pointer-events: none;
 }
 
-/* === HERO REWORK === */
-.hero { padding: 128px 0 80px; }
-.hero::before { opacity: 0.06; }
-.hero .h-display { max-width: none; }
-.hero .sub { font-size: 19px; max-width: 620px; }
-
-/* Eyebrow above hero — small ASCII-style accent line */
-.hero .h-display::before {
-  content: "// SATMAKON";
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  color: #7C3AED;
-  margin-bottom: 28px;
+/* === Scattered geometric squares in students section === */
+.students-rows { position: relative; }
+.students-rows::before, .students-rows::after {
+  content: "";
+  position: absolute;
+  width: 14px; height: 14px;
+  border-radius: 4px;
+  pointer-events: none;
+}
+.students-rows::before {
+  background: var(--lime); top: 0; left: 6%;
+  transform: rotate(20deg);
+}
+.students-rows::after {
+  background: #C4B5FD; bottom: -10px; right: 8%;
+  transform: rotate(-15deg);
 }
 
-/* === PATH cards: number block style === */
-.path-card { border: 2px solid #0B0B0F; border-radius: 6px; padding: 36px 24px 28px; }
-.path-card.highlight { background: #0B0B0F; color: #fff; border-color: #0B0B0F; }
-.path-card.highlight h4 { color: #fff; }
-.path-card.highlight .sub { color: #E5FF4E; }
-.path-number {
-  position: absolute; top: -2px; left: -2px; transform: none;
-  width: 56px; height: 56px;
-  border-radius: 0; background: #0B0B0F; color: #fff; border: 0;
-  display: grid; place-items: center;
-  font-family: var(--font-display);
-  font-size: 20px; font-weight: 800;
-  font-variation-settings: "wdth" 80;
-}
-.path-card.highlight .path-number { background: #7C3AED; }
-.path-card:hover { transform: translateY(-4px); box-shadow: 8px 8px 0 #7C3AED; border-color: #0B0B0F; }
-.path-card.highlight:hover { box-shadow: 8px 8px 0 #E5FF4E; }
-
-/* === BENEFITS PURPLE CARD: sharper, bigger === */
-.benefits-card { border-radius: 0; }
-.benefits-card h3 { font-family: var(--font-display); font-variation-settings: "wdth" 92, "opsz" 96; font-size: 28px; font-weight: 700; }
-.benefits-card .benefits-cta { border-radius: 0; font-family: var(--font-mono); text-transform: uppercase; font-size: 12px; letter-spacing: 0.06em; }
-
-/* === FAQ === */
-.faq-q { font-family: var(--font-display); font-variation-settings: "wdth" 95, "opsz" 36; font-weight: 700; font-size: 19px; padding: 26px 0; letter-spacing: -0.02em; }
-.faq-list { border-top-width: 2px; border-top-color: #0B0B0F; }
-.faq-item { border-bottom-width: 2px; border-bottom-color: #0B0B0F; }
-
-/* === STUDENT CAROUSEL: slightly sharper cards === */
-.student-img-card { border-radius: 6px; }
-
-/* === NAV: hard underline on hover, mono small caps === */
-.nav-links a { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; }
-.nav-location { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; border-radius: 0; }
-.lang button { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 500; border-radius: 0; }
-
-/* === PRICING SUBHEAD === */
-.pricing-subhead { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500; }
-
-/* === FINAL CTA - matching black card with violet accent === */
-.final-cta { background: #0B0B0F; border-radius: 0; }
-.final-cta::before { background: radial-gradient(ellipse at top right, rgba(124,58,237,0.4), transparent 50%); }
-.final-cta h2 .a { color: #E5FF4E; font-style: italic; }
-.final-cta .btn { background: #fff; color: #0B0B0F; border-radius: 0; padding: 22px 40px; }
-
-/* === FOOTER === */
-.footer { border-top: 2px solid #0B0B0F; }
-.footer-links a { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
-.footer-contact { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; }
-
-/* === Container slightly tighter === */
+/* === Container size === */
 .container { max-width: 1200px; }
 
-/* === Numeric tabular figures throughout === */
-.h-display, .h-section, .stat-num, .tier-price, .p-price, .ms-num, .price-card .p-price {
-  font-feature-settings: "tnum" 1, "ss01" 1;
-  font-variant-numeric: tabular-nums;
-}
+/* === Brand wordmark: keep v1 style === */
+.brand-wm { font-family: "Plus Jakarta Sans", sans-serif; font-weight: 700; }
+
+
 
   </style>
 </head>
