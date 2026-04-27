@@ -7,6 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <!-- v2: editorial serif display face + softer sans for body -->
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..900,0..100&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
   <link rel="icon" href="../satmakon-shield.png"/>
   <link rel="preload" as="image" href="../students/1-sogdiana.png"/>
   <link rel="preload" as="image" href="../students/2-javohir.png"/>
@@ -1031,6 +1033,110 @@ section.bg-gray { background: #F5F5F7; }
   .brand-wm { font-size: 14px; }
   .hero { padding: 48px 0 40px; }
 }
+
+/* ============================================================
+   v2 OVERRIDES — editorial serif treatment
+   ============================================================ */
+:root {
+  --font-display: "Fraunces", "Plus Jakarta Sans", serif;
+  --font-body: "Manrope", "Inter", system-ui, sans-serif;
+}
+body, html { font-family: var(--font-body); }
+
+/* Display headlines: serif, slightly less tight, optical sizing */
+.h-display, .h-section, .course-name {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 144, "SOFT" 30;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+.h-display { font-weight: 500; }
+.brand-wm { font-family: var(--font-display); font-weight: 700; font-variation-settings: "opsz" 12; }
+
+/* Eyebrow + small caps treatment */
+.eyebrow-pill {
+  font-family: var(--font-body);
+  letter-spacing: 0.18em;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
+/* Serif italic for accent words feels editorial */
+.h-display .a, .h-section .a, .final-cta h2 .a {
+  font-style: italic;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  font-weight: 500;
+}
+
+/* Card titles also serif for consistency */
+.explain-card h4, .info-card h4, .testi .name, .path-card h4, .feature-card h4, .kam-quote .q {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+/* Hero: 2-column layout on desktop — text left, shield right (instead of decorative backdrop) */
+@media (min-width: 880px) {
+  .hero { padding-top: 96px; padding-bottom: 96px; }
+  .hero::before {
+    /* swap to a fixed-position shield, more present */
+    opacity: 0.14;
+    width: 50%;
+    right: -2%;
+    aspect-ratio: 1 / 1.05;
+  }
+  .hero .h-display { max-width: 720px; }
+  .hero .sub, .hero .cta-row, .hero .social-row, .hero .stats-row { max-width: 680px; }
+  .hero .stats-row { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* Slightly looser line-heights for serif comfort */
+.h-display { line-height: 1.06; }
+.h-section { line-height: 1.08; }
+
+/* Buttons: subtler, more "old money" look */
+.btn { font-family: var(--font-body); font-weight: 600; letter-spacing: -0.005em; }
+.btn-primary { background: #1F2430; color: #fff; }
+.btn-primary:hover { background: #0B0B0F; }
+.nav-cta { background: #1F2430; }
+.nav-cta:hover { background: #0B0B0F; }
+.p-cta { background: #1F2430; }
+.p-cta:hover { background: #0B0B0F; }
+
+/* Soften the page violet tone slightly toward indigo for a different mood */
+.brand-wm .a, .h-display .a, .h-section .a, .stat-num, .lang button.on,
+.eyebrow-pill::before, .nav-location svg, .footer-contact svg, .footer-location svg,
+.feature-card .icon, .makonai-feat .check, .testi .sub, .price-card.recommended .p-feat .mark,
+.tier.rec .tier-price, .nav-mobile-lang button.on, .footer-links a:hover {
+  color: #4F46E5;
+}
+.tier.rec { background: linear-gradient(90deg, rgba(79,70,229,0.08), rgba(79,70,229,0.02)); border-color: rgba(79,70,229,0.22); }
+.tier-badge { background: #4F46E5; }
+.path-card.highlight { background: #4F46E5; border-color: #4F46E5; box-shadow: 0 20px 40px rgba(79,70,229,0.25); }
+.benefits-card { background: linear-gradient(155deg, #6366F1 0%, #4338CA 100%); }
+.benefits-card .benefits-cta { color: #4338CA; }
+.faq-item.open .caret { background: #4F46E5; }
+.path-card:hover { border-color: #C7D2FE; }
+.path-card:hover .path-number { border-color: #4F46E5; color: #4F46E5; }
+.explain-card:hover, .testi:hover { border-color: #C7D2FE; }
+.course-card:hover { border-color: #C7D2FE; }
+.testi .avatar { background: linear-gradient(135deg, #E0E7FF, #818CF8); color: #4338CA; }
+
+/* Tighter container — feels more "magazine" */
+.container { max-width: 1140px; }
+
+/* Section dividers: hairline rules between sections instead of gray fills */
+section.bg-gray { background: transparent; border-top: 1px solid rgba(11,11,15,0.06); border-bottom: 1px solid rgba(11,11,15,0.06); }
+
+/* Pricing eyebrow more refined */
+.pricing-subhead { font-family: var(--font-display); font-weight: 500; letter-spacing: -0.01em; font-style: italic; }
+
+/* Final CTA card: subtler */
+.final-cta { background: linear-gradient(155deg, #6366F1 0%, #4338CA 100%); }
+.final-cta h2 .a { color: #FDE68A; font-style: italic; font-weight: 500; }
+
+/* Student card score color stays gold — works with indigo too */
 
   </style>
 </head>
