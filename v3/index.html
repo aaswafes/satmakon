@@ -1044,8 +1044,8 @@ section.bg-gray { background: #F5F5F7; }
 :root {
   --font-display: "Manrope", "Plus Jakarta Sans", sans-serif;
   --font-body: "Manrope", "Inter", sans-serif;
-  --lime: #DBFF65;
-  --lime-deep: #C7F03A;
+  --lime: #7C3AED;
+  --lime-deep: #6D28D9;
   --cream: #F2F2F4;
   --ink: #0B0B0F;
 }
@@ -1105,7 +1105,7 @@ section.bg-gray > .container {
 /* === BUTTONS: lime green pills, black ink, arrow on hover === */
 .btn-primary, .nav-cta, .p-cta, .btn.btn-primary {
   background: var(--lime) !important;
-  color: var(--ink) !important;
+  color: #fff !important;
   border: 0;
   font-weight: 700;
   letter-spacing: -0.005em;
@@ -1117,7 +1117,7 @@ section.bg-gray > .container {
 }
 .btn-primary:hover, .nav-cta:hover, .p-cta:hover, .btn.btn-primary:hover {
   background: var(--lime-deep) !important;
-  color: var(--ink) !important;
+  color: #fff !important;
   transform: translateY(-1px);
 }
 .btn-secondary {
@@ -1171,7 +1171,7 @@ section.bg-gray > .container {
   right: 4%;
   width: 360px; height: 360px;
   background-image:
-    radial-gradient(circle at 12px 12px, var(--lime) 4px, transparent 5px),
+    radial-gradient(circle at 12px 12px, #A78BFA 4px, transparent 5px),
     radial-gradient(circle at 12px 12px, #C4B5FD 4px, transparent 5px);
   background-size: 32px 32px, 32px 32px;
   background-position: 0 0, 16px 16px;
@@ -1204,7 +1204,7 @@ section.bg-gray > .container {
   align-items: center; justify-content: center;
   width: 36px; height: 36px;
   background: var(--lime);
-  color: var(--ink);
+  color: #fff;
   border-radius: 999px;
   font-family: var(--font-body);
   font-size: 14px; font-weight: 700;
@@ -1213,8 +1213,8 @@ section.bg-gray > .container {
 
 /* === BENEFITS PURPLE CARD: keep purple but generous radius === */
 .benefits-card { border-radius: 24px; }
-.benefits-card .benefits-cta { background: var(--lime); color: var(--ink); border-radius: 999px; }
-.benefits-card .benefits-cta:hover { background: var(--lime-deep); }
+.benefits-card .benefits-cta { background: #fff; color: #5B21B6; border-radius: 999px; }
+.benefits-card .benefits-cta:hover { background: #F3F4F6; color: #5B21B6; }
 
 /* === PATH cards: lime number bubble, soft === */
 .path-card {
@@ -1226,25 +1226,25 @@ section.bg-gray > .container {
 }
 .path-card.highlight { background: var(--ink); border: 0; box-shadow: 0 12px 32px rgba(11,11,15,0.18); }
 .path-card.highlight h4 { color: #fff; }
-.path-card.highlight .sub { color: var(--lime); }
+.path-card.highlight .sub { color: #FDE68A; }
 .path-card.highlight p { color: rgba(255,255,255,0.85); }
 .path-number {
   background: var(--lime);
-  color: var(--ink);
+  color: #fff;
   border: 0;
   font-family: var(--font-body);
   font-weight: 700;
   font-size: 13px;
   width: 36px; height: 36px;
 }
-.path-card.highlight .path-number { background: var(--lime); color: var(--ink); }
+.path-card.highlight .path-number { background: #fff; color: #5B21B6; }
 .path-card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(11,11,15,0.06); border-color: transparent; }
-.path-card:hover .path-number { background: var(--lime-deep); color: var(--ink); border: 0; }
+.path-card:hover .path-number { background: var(--lime-deep); color: #fff; border: 0; }
 
 /* === PRICING: soft cards, lime CTA, recommended uses purple to stay on-brand === */
 .course-card { padding: 36px 32px; gap: 20px; }
 .course-card:hover { border: 0; box-shadow: 0 18px 40px rgba(11,11,15,0.06); transform: translateY(-4px); }
-.tier-badge { background: var(--lime); color: var(--ink); border-radius: 999px; font-weight: 700; }
+.tier-badge { background: var(--lime); color: #fff; border-radius: 999px; font-weight: 700; }
 .tier.rec { background: rgba(124,58,237,0.06); border: 1px solid rgba(124,58,237,0.18); }
 .tier.rec .tier-price { color: #5B21B6; }
 .tier-price span { color: #8A8F9C; }
@@ -1257,8 +1257,8 @@ section.bg-gray > .container {
 .faq-list { border-top: 1px solid rgba(11,11,15,0.08); }
 .faq-item { border-bottom-color: rgba(11,11,15,0.08); }
 .faq-q { padding: 26px 0; font-weight: 700; font-size: 17px; letter-spacing: -0.01em; }
-.faq-q .caret { background: var(--lime); color: var(--ink); }
-.faq-item.open .caret { background: var(--ink); color: var(--lime); }
+.faq-q .caret { background: #EDE9FE; color: #7C3AED; }
+.faq-item.open .caret { background: #7C3AED; color: #fff; }
 
 /* === Final CTA: black card with lime button === */
 .final-cta {
@@ -1267,9 +1267,9 @@ section.bg-gray > .container {
   border: 0;
 }
 .final-cta::before { background: radial-gradient(ellipse at top right, rgba(124,58,237,0.35), transparent 60%); }
-.final-cta h2 .a { color: var(--lime); display: block; }
-.final-cta .btn { background: var(--lime); color: var(--ink); border-radius: 999px; padding: 18px 32px; }
-.final-cta .btn:hover { background: var(--lime-deep); }
+.final-cta h2 .a { color: #FDE68A; display: block; }
+.final-cta .btn { background: #fff; color: #0B0B0F; border-radius: 999px; padding: 18px 32px; }
+.final-cta .btn:hover { background: #F3F4F6; color: #5B21B6; }
 
 /* === Footer: black, rounded top === */
 .footer {
@@ -1284,13 +1284,13 @@ section.bg-gray > .container {
 .footer .container { padding: 0 40px; }
 .footer .brand-wm { color: #fff; }
 .footer-links a { color: rgba(255,255,255,0.7); font-family: var(--font-body); text-transform: none; letter-spacing: 0; }
-.footer-links a:hover { color: var(--lime); }
+.footer-links a:hover { color: #A78BFA; }
 .footer-rights { color: rgba(255,255,255,0.45); }
 .footer-contact { color: rgba(255,255,255,0.7); font-family: var(--font-body); text-transform: none; letter-spacing: 0; }
-.footer-contact:hover { color: var(--lime); }
-.footer-contact svg { color: var(--lime); }
+.footer-contact:hover { color: #A78BFA; }
+.footer-contact svg { color: #A78BFA; }
 .footer-social a { background: rgba(255,255,255,0.08); color: #fff; }
-.footer-social a:hover { background: var(--lime); color: var(--ink); }
+.footer-social a:hover { background: #7C3AED; color: #fff; }
 
 /* === Decorative dotted background pattern in info-card layout === */
 .three-col { position: relative; }
@@ -1314,7 +1314,7 @@ section.bg-gray > .container {
   pointer-events: none;
 }
 .students-rows::before {
-  background: var(--lime); top: 0; left: 6%;
+  background: #7C3AED; top: 0; left: 6%;
   transform: rotate(20deg);
 }
 .students-rows::after {
@@ -1329,6 +1329,12 @@ section.bg-gray > .container {
 .brand-wm { font-family: "Plus Jakarta Sans", sans-serif; font-weight: 700; }
 
 
+
+/* Replace remaining yellow-green accents (#E5FF4E) inherited from base CSS with cream/white */
+.student-card .score { color: #FDE68A; }
+.price-badge.pop { background: #FDE68A; color: #3B1A8A; }
+.price-card.popular .p-feat .mark { background: rgba(253,230,138,0.25); color: #FDE68A; }
+.price-card.popular .p-cta { background: #FDE68A; color: #3B1A8A; }
 
   </style>
 </head>
