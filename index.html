@@ -2311,6 +2311,7 @@ function useSwipeMarquee(reverse, speed) {
     let dragStartX = 0;
     let dragScrollStart = 0;
     let raf = 0;
+    let accumulator = 0;
     const halfWidth = () => el.scrollWidth / 2;
 
     // For reverse, start scrolled past so decrementing has room
@@ -2369,11 +2370,16 @@ function useSwipeMarquee(reverse, speed) {
     const tick = () => {
       if (!userPaused && !el.matches(':hover')) {
         const dir = reverse ? -1 : 1;
-        const half = halfWidth();
-        if (half > 0) {
-          let next = el.scrollLeft + speed * dir;
-          if (!reverse && next >= half) next -= half;else if (reverse && next <= 0) next += half;
-          el.scrollLeft = next;
+        accumulator += speed * dir;
+        const intPart = Math.trunc(accumulator);
+        if (intPart !== 0) {
+          const half = halfWidth();
+          if (half > 0) {
+            let next = el.scrollLeft + intPart;
+            if (!reverse && next >= half) next -= half;else if (reverse && next <= 0) next += half;
+            el.scrollLeft = next;
+          }
+          accumulator -= intPart;
         }
       }
       raf = requestAnimationFrame(tick);
