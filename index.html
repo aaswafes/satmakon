@@ -687,17 +687,29 @@ section.bg-gray { background: #F5F5F7; }
 .mini-radar { background: #F5F5F7; border-radius: 8px; aspect-ratio: 2/1; display: grid; place-items: center; color: #7C3AED; font-size: 10px; font-weight: 600; }
 .mini-streak { background: #FFF7ED; border-radius: 8px; padding: 8px 10px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: #B45309; font-weight: 600; }
 
-/* ---- Students (auto-scroll marquee with edge fade) ---- */
+/* ---- Students (swipeable horizontal scroll with auto-drift) ---- */
 .students-rows {
   margin-top: 48px;
   display: flex; flex-direction: column; gap: 18px;
 }
 .students-marquee {
   position: relative;
-  overflow: hidden;
   padding: 8px 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+  cursor: grab;
 }
-.students-marquee::before, .students-marquee::after {
+.students-marquee::-webkit-scrollbar { display: none; }
+.students-marquee.dragging { cursor: grabbing; user-select: none; }
+
+/* Edge fade gradients are positioned outside the scroll container */
+.students-rows .marquee-wrap {
+  position: relative;
+}
+.students-rows .marquee-wrap::before, .students-rows .marquee-wrap::after {
   content: "";
   position: absolute;
   top: 0; bottom: 0;
@@ -705,35 +717,22 @@ section.bg-gray { background: #F5F5F7; }
   z-index: 2;
   pointer-events: none;
 }
-.students-marquee::before {
+.students-rows .marquee-wrap::before {
   left: 0;
   background: linear-gradient(90deg, #fff 0%, rgba(255,255,255,0) 100%);
 }
-.students-marquee::after {
+.students-rows .marquee-wrap::after {
   right: 0;
   background: linear-gradient(270deg, #fff 0%, rgba(255,255,255,0) 100%);
 }
 @media (max-width: 560px) {
-  .students-marquee::before, .students-marquee::after { width: 40px; }
+  .students-rows .marquee-wrap::before, .students-rows .marquee-wrap::after { width: 40px; }
 }
 .students-marquee .students-track {
   display: flex;
   gap: 16px;
   width: max-content;
-  animation: students-scroll 120s linear infinite;
   will-change: transform;
-}
-.students-marquee.rev .students-track {
-  animation-direction: reverse;
-  animation-duration: 130s;
-}
-.students-marquee:hover .students-track {
-  animation-play-state: paused;
-}
-@keyframes students-scroll {
-  from { transform: translate3d(0, 0, 0); }
-  /* move exactly half the track (duplicated) so the loop is seamless */
-  to   { transform: translate3d(calc(-50% - 8px), 0, 0); }
 }
 @media (prefers-reduced-motion: reduce) {
   .students-marquee .students-track { animation: none; }
@@ -2301,13 +2300,112 @@ function MakonAI({
     }
   })))));
 }
+function useSwipeMarquee(reverse, speed) {
+  const ref = React.useRef(null);
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    let userPaused = false;
+    let pauseTimer = null;
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragScrollStart = 0;
+    let raf = 0;
+    const halfWidth = () => el.scrollWidth / 2;
+
+    // For reverse, start scrolled past so decrementing has room
+    const initScroll = () => {
+      const half = halfWidth();
+      if (half > 0) el.scrollLeft = reverse ? half : 0;
+    };
+    if (el.querySelectorAll('img')[0]?.complete) initScroll();else el.addEventListener('load', initScroll, {
+      capture: true,
+      once: true
+    });
+    const bumpUserPause = () => {
+      userPaused = true;
+      if (pauseTimer) clearTimeout(pauseTimer);
+      pauseTimer = setTimeout(() => {
+        userPaused = false;
+      }, 2200);
+    };
+    const onPointerDown = e => {
+      isDragging = true;
+      dragStartX = e.touches ? e.touches[0].pageX : e.pageX;
+      dragScrollStart = el.scrollLeft;
+      el.classList.add('dragging');
+      bumpUserPause();
+    };
+    const onPointerMove = e => {
+      if (!isDragging) return;
+      const x = e.touches ? e.touches[0].pageX : e.pageX;
+      el.scrollLeft = dragScrollStart - (x - dragStartX);
+    };
+    const onPointerUp = () => {
+      isDragging = false;
+      el.classList.remove('dragging');
+      bumpUserPause();
+    };
+    const onWheel = bumpUserPause;
+    const onScrollFromUser = e => {
+      if (e.isTrusted) {
+        /* user scroll */bumpUserPause();
+      }
+    };
+    el.addEventListener('mousedown', onPointerDown);
+    el.addEventListener('mousemove', onPointerMove);
+    el.addEventListener('mouseup', onPointerUp);
+    el.addEventListener('mouseleave', onPointerUp);
+    el.addEventListener('touchstart', onPointerDown, {
+      passive: true
+    });
+    el.addEventListener('touchmove', onPointerMove, {
+      passive: true
+    });
+    el.addEventListener('touchend', onPointerUp);
+    el.addEventListener('wheel', onWheel, {
+      passive: true
+    });
+    const tick = () => {
+      if (!userPaused && !el.matches(':hover')) {
+        const dir = reverse ? -1 : 1;
+        const half = halfWidth();
+        if (half > 0) {
+          let next = el.scrollLeft + speed * dir;
+          if (!reverse && next >= half) next -= half;else if (reverse && next <= 0) next += half;
+          el.scrollLeft = next;
+        }
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => {
+      cancelAnimationFrame(raf);
+      if (pauseTimer) clearTimeout(pauseTimer);
+      el.removeEventListener('mousedown', onPointerDown);
+      el.removeEventListener('mousemove', onPointerMove);
+      el.removeEventListener('mouseup', onPointerUp);
+      el.removeEventListener('mouseleave', onPointerUp);
+      el.removeEventListener('touchstart', onPointerDown);
+      el.removeEventListener('touchmove', onPointerMove);
+      el.removeEventListener('touchend', onPointerUp);
+      el.removeEventListener('wheel', onWheel);
+    };
+  }, [reverse, speed]);
+  return ref;
+}
 function Students({
   t
 }) {
   const s = t.students;
   const imgs1 = ['students/1-sogdiana.png', 'students/2-javohir.png', 'students/3-maral.png', 'students/4-madiyar.png', 'students/5-aiym.png'];
   const imgs2 = ['students/6-samira.png', 'students/7-shirinabonu.png', 'students/8-jaleel.png', 'students/9-ayanat.png', 'students/10-shohjahon.png'];
-  const renderRow = (imgs, reverse) => /*#__PURE__*/React.createElement("div", {
+  const ref1 = useSwipeMarquee(false, 0.4);
+  const ref2 = useSwipeMarquee(true, 0.36);
+  const renderRow = (imgs, reverse, ref) => /*#__PURE__*/React.createElement("div", {
+    className: "marquee-wrap"
+  }, /*#__PURE__*/React.createElement("div", {
+    ref: ref,
     className: "students-marquee" + (reverse ? " rev" : "")
   }, /*#__PURE__*/React.createElement("div", {
     className: "students-track"
@@ -2322,7 +2420,7 @@ function Students({
     width: "600",
     height: "750",
     decoding: "async"
-  })))));
+  }))))));
   return /*#__PURE__*/React.createElement("section", null, /*#__PURE__*/React.createElement("div", {
     className: "container"
   }, /*#__PURE__*/React.createElement("div", {
@@ -2344,7 +2442,7 @@ function Students({
   }, s.sub))), /*#__PURE__*/React.createElement("div", {
     className: "students-rows",
     "aria-label": "Student results"
-  }, renderRow(imgs1, false), renderRow(imgs2, true)));
+  }, renderRow(imgs1, false, ref1), renderRow(imgs2, true, ref2)));
 }
 function SocialProofBar({
   t
