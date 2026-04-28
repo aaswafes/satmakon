@@ -1063,15 +1063,31 @@ section.bg-gray { background: #F5F5F7; }
 .final-cta .btn:hover { transform: translateY(-2px); }
 .final-cta .small { font-size: 13px; opacity: 0.85; margin-top: 20px; position: relative; }
 
-/* ---- Footer ---- */
-.footer { padding: 48px 0 40px; border-top: 1px solid rgba(0,0,0,0.06); }
+/* ---- Footer (dark, rounded top) ---- */
+.footer {
+  background: #0B0B0F;
+  color: rgba(255,255,255,0.7);
+  border-top: 0;
+  border-radius: 32px 32px 0 0;
+  margin-top: 32px;
+  padding: 56px 0 40px;
+  position: relative;
+}
+.footer .container { padding: 0 40px; }
 .footer-row { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+.footer .brand-wm { color: #fff; }
 .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
-.footer-links a { color: #525768; font-size: 13px; text-decoration: none; }
-.footer-links a:hover { color: #7C3AED; }
-.footer-rights { color: #8A8F9C; font-size: 13px; }
+.footer-links a { color: rgba(255,255,255,0.7); font-size: 13px; text-decoration: none; transition: color .15s; }
+.footer-links a:hover { color: #A78BFA; }
+.footer-rights { color: rgba(255,255,255,0.45); font-size: 13px; }
 .footer-social { display: flex; gap: 10px; }
-.footer-social a { width: 36px; height: 36px; border-radius: 999px; background: #F5F5F7; display: grid; place-items: center; color: #525768; text-decoration: none; transition: background .15s, color .15s, transform .15s; }
+.footer-social a {
+  width: 36px; height: 36px; border-radius: 999px;
+  background: rgba(255,255,255,0.08); color: #fff;
+  display: grid; place-items: center;
+  text-decoration: none;
+  transition: background .15s, color .15s, transform .15s;
+}
 .footer-social a:hover { background: #7C3AED; color: #fff; transform: translateY(-1px); }
 .footer-social svg { display: block; }
 
@@ -1093,16 +1109,17 @@ section.bg-gray { background: #F5F5F7; }
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  color: #525768;
+  color: rgba(255,255,255,0.7);
   font-size: 13px;
   text-decoration: none;
   transition: color .15s;
 }
-.footer-contact:hover { color: #7C3AED; }
-.footer-contact svg { color: #7C3AED; flex: none; }
+.footer-contact:hover { color: #A78BFA; }
+.footer-contact svg { color: #A78BFA; flex: none; }
 @media (max-width: 560px) {
   .footer-bottom { flex-direction: column; align-items: flex-start; gap: 12px; }
   .footer-contacts { gap: 14px; flex-direction: column; align-items: flex-start; }
+  .footer .container { padding: 0 24px; }
 }
 
 /* ---- Responsive ---- */
