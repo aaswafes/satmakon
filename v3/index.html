@@ -1276,11 +1276,24 @@ section.bg-gray > .container {
   background: var(--ink);
   color: rgba(255,255,255,0.7);
   border-top: 0;
-  border-radius: 32px 32px 0 0;
-  margin-top: 32px;
-  padding: 56px 0 40px;
+  border-radius: 0;
+  margin-top: 0;
+  padding: 140px 0 60px;
   position: relative;
 }
+.footer::before {
+  /* extend the black further up by overlapping the section above */
+  content: "";
+  position: absolute;
+  top: -80px;
+  left: 0; right: 0;
+  height: 80px;
+  background: var(--ink);
+  pointer-events: none;
+  z-index: 0;
+}
+section#faq { padding-bottom: 64px; }
+section#faq + .footer { margin-top: 0; }
 .footer .container { padding: 0 40px; }
 .footer .brand-wm { color: #fff; }
 .footer-links a { color: rgba(255,255,255,0.7); font-family: var(--font-body); text-transform: none; letter-spacing: 0; }
