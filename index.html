@@ -2323,19 +2323,19 @@ function useSwipeMarquee(reverse, speed) {
       capture: true,
       once: true
     });
-    const bumpUserPause = () => {
+    const bumpUserPause = (ms = 800) => {
       userPaused = true;
       if (pauseTimer) clearTimeout(pauseTimer);
       pauseTimer = setTimeout(() => {
         userPaused = false;
-      }, 2200);
+      }, ms);
     };
     const onPointerDown = e => {
       isDragging = true;
       dragStartX = e.touches ? e.touches[0].pageX : e.pageX;
       dragScrollStart = el.scrollLeft;
       el.classList.add('dragging');
-      bumpUserPause();
+      bumpUserPause(800);
     };
     const onPointerMove = e => {
       if (!isDragging) return;
@@ -2343,20 +2343,28 @@ function useSwipeMarquee(reverse, speed) {
       el.scrollLeft = dragScrollStart - (x - dragStartX);
     };
     const onPointerUp = () => {
+      if (!isDragging) return;
       isDragging = false;
       el.classList.remove('dragging');
-      bumpUserPause();
+      bumpUserPause(800);
     };
-    const onWheel = bumpUserPause;
-    const onScrollFromUser = e => {
-      if (e.isTrusted) {
-        /* user scroll */bumpUserPause();
+    const onMouseLeave = () => {
+      // End drag if active, but DO NOT pause drift for plain hover-out
+      if (isDragging) {
+        isDragging = false;
+        el.classList.remove('dragging');
+        bumpUserPause(800);
       }
+    };
+    const onWheel = e => {
+      // Only pause for horizontal wheels (Shift+wheel or trackpad horizontal swipes).
+      // Vertical wheel = user is scrolling the page, don't pause horizontal drift.
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) bumpUserPause(800);
     };
     el.addEventListener('mousedown', onPointerDown);
     el.addEventListener('mousemove', onPointerMove);
     el.addEventListener('mouseup', onPointerUp);
-    el.addEventListener('mouseleave', onPointerUp);
+    el.addEventListener('mouseleave', onMouseLeave);
     el.addEventListener('touchstart', onPointerDown, {
       passive: true
     });
@@ -2391,7 +2399,7 @@ function useSwipeMarquee(reverse, speed) {
       el.removeEventListener('mousedown', onPointerDown);
       el.removeEventListener('mousemove', onPointerMove);
       el.removeEventListener('mouseup', onPointerUp);
-      el.removeEventListener('mouseleave', onPointerUp);
+      el.removeEventListener('mouseleave', onMouseLeave);
       el.removeEventListener('touchstart', onPointerDown);
       el.removeEventListener('touchmove', onPointerMove);
       el.removeEventListener('touchend', onPointerUp);
