@@ -1085,6 +1085,64 @@ section.bg-gray { background: #F5F5F7; }
 .final-cta .btn:hover { transform: translateY(-2px); }
 .final-cta .small { font-size: 13px; opacity: 0.85; margin-top: 20px; position: relative; }
 
+/* ---- Register modal (lead capture popup) ---- */
+.reg-backdrop {
+  position: fixed; inset: 0; z-index: 2000;
+  background: rgba(11, 11, 15, 0.55);
+  backdrop-filter: blur(4px);
+  display: grid; place-items: center;
+  padding: 20px;
+  animation: regFade .18s ease-out;
+}
+@keyframes regFade { from { opacity: 0; } to { opacity: 1; } }
+.reg-card {
+  background: #fff; color: #0B0B0F;
+  border-radius: 24px; padding: 32px 28px 28px;
+  width: 100%; max-width: 420px;
+  box-shadow: 0 32px 80px rgba(11,11,15,0.35);
+  position: relative;
+  animation: regRise .22s cubic-bezier(.2,.7,.3,1);
+}
+@keyframes regRise { from { transform: translateY(12px); opacity: 0; } to { transform: none; opacity: 1; } }
+.reg-card .reg-close {
+  position: absolute; top: 14px; right: 14px;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: #F5F5F7; border: 0; cursor: pointer;
+  display: grid; place-items: center;
+  font-size: 18px; color: #525768;
+  transition: background .15s;
+}
+.reg-card .reg-close:hover { background: #EAEAEE; }
+.reg-card h3 {
+  font-family: var(--font-display); font-weight: 800;
+  font-size: 26px; line-height: 1.15; letter-spacing: -0.02em;
+  margin: 0 0 8px;
+}
+.reg-card .reg-sub { font-size: 14px; color: #525768; margin: 0 0 22px; line-height: 1.45; }
+.reg-card label { display: block; font-size: 13px; font-weight: 600; color: #0B0B0F; margin: 0 0 6px; }
+.reg-card input {
+  width: 100%; box-sizing: border-box;
+  padding: 13px 14px; border-radius: 12px;
+  border: 1px solid #E2E2E7; background: #FAFAFB;
+  font-size: 15px; font-family: inherit; color: #0B0B0F;
+  transition: border-color .15s, background .15s;
+}
+.reg-card input:focus { outline: 0; border-color: #7C3AED; background: #fff; }
+.reg-field + .reg-field { margin-top: 14px; }
+.reg-card .reg-submit {
+  width: 100%; margin-top: 20px;
+  padding: 15px 24px; border-radius: 999px;
+  background: #0B0B0F; color: #fff;
+  font-family: inherit; font-size: 15px; font-weight: 700;
+  border: 0; cursor: pointer;
+  transition: transform .15s, background .15s;
+}
+.reg-card .reg-submit:hover:not(:disabled) { transform: translateY(-1px); background: #1a1a22; }
+.reg-card .reg-submit:disabled { opacity: 0.65; cursor: not-allowed; }
+.reg-card .reg-msg { margin-top: 14px; font-size: 14px; text-align: center; }
+.reg-card .reg-msg.ok { color: #15803D; }
+.reg-card .reg-msg.err { color: #B91C1C; }
+
 /* ---- Footer (dark, rounded top) ---- */
 .footer {
   background: #0B0B0F;
@@ -1643,8 +1701,21 @@ window.COPY = {
     finalCTA: {
       h: ["Birinchi qadamni", "bugun qo'ying"],
       sub: "Bepul konsultatsiyada maqsadlaringiz, joriy ballingiz va mos tarifni muhokama qilamiz.",
-      cta: "Qo'ng'iroqni buyurtma qilish",
+      cta: "Ro'yxatdan o'ting",
       social: "Majburiyatsiz  ·  30 daqiqa  ·  Shaxsiy tavsiyalar",
+    },
+    register: {
+      title: "Konsultatsiyaga yozilish",
+      subtitle: "Ma'lumotlaringizni qoldiring — tez orada bog'lanamiz.",
+      nameLabel: "Ismingiz",
+      namePh: "Ism familiyangiz",
+      phoneLabel: "Telefon raqamingiz",
+      phonePh: "+998 90 123 45 67",
+      submit: "Yuborish",
+      sending: "Yuborilmoqda...",
+      success: "Rahmat! Tez orada siz bilan bog'lanamiz.",
+      error: "Xatolik yuz berdi. Iltimos, qayta urinib ko'ring.",
+      close: "Yopish",
     },
     footer: {
       rights: "© 2025 SAT Makon. Barcha huquqlar himoyalangan.",
@@ -1819,8 +1890,21 @@ window.COPY = {
     finalCTA: {
       h: ["Сделайте первый", "шаг сегодня"],
       sub: "На бесплатной консультации обсудим Ваши цели, текущий балл и подходящий тариф.",
-      cta: "Заказать звонок",
+      cta: "Зарегистрироваться",
       social: "Без обязательств  ·  30 минут  ·  Персональные рекомендации",
+    },
+    register: {
+      title: "Запись на консультацию",
+      subtitle: "Оставьте свои данные — мы свяжемся с вами в ближайшее время.",
+      nameLabel: "Ваше имя",
+      namePh: "Имя и фамилия",
+      phoneLabel: "Номер телефона",
+      phonePh: "+998 90 123 45 67",
+      submit: "Отправить",
+      sending: "Отправка...",
+      success: "Спасибо! Мы свяжемся с вами в ближайшее время.",
+      error: "Произошла ошибка. Пожалуйста, попробуйте снова.",
+      close: "Закрыть",
     },
     footer: {
       rights: "© 2025 SAT Makon. Все права защищены.",
@@ -2800,7 +2884,8 @@ function FaqSection({
   }, it.a))))));
 }
 function FinalCTA({
-  t
+  t,
+  onCtaClick
 }) {
   const f = t.finalCTA;
   return /*#__PURE__*/React.createElement("section", null, /*#__PURE__*/React.createElement("div", {
@@ -2810,10 +2895,119 @@ function FinalCTA({
   }, /*#__PURE__*/React.createElement("h2", null, f.h[0], " ", /*#__PURE__*/React.createElement("span", {
     className: "a"
   }, f.h[1])), /*#__PURE__*/React.createElement("p", null, f.sub), /*#__PURE__*/React.createElement("button", {
-    className: "btn"
+    className: "btn",
+    onClick: onCtaClick
   }, f.cta, " \u2192"), /*#__PURE__*/React.createElement("div", {
     className: "small"
   }, f.social))));
+}
+function RegisterModal({
+  t,
+  open,
+  onClose
+}) {
+  const r = t.register;
+  const [name, setName] = React.useState("");
+  const [phone, setPhone] = React.useState("");
+  const [status, setStatus] = React.useState("idle"); // idle | sending | ok | err
+  React.useEffect(() => {
+    if (!open) return;
+    setName("");
+    setPhone("");
+    setStatus("idle");
+    const onKey = e => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [open, onClose]);
+  if (!open) return null;
+  const submit = async e => {
+    e.preventDefault();
+    if (status === "sending") return;
+    const n = name.trim();
+    const p = phone.trim();
+    if (!n || !p) {
+      setStatus("err");
+      return;
+    }
+    setStatus("sending");
+    try {
+      const res = await fetch("https://nick-90891--claude-orchestrator-submit-lead.modal.run/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: n, phone: p, source: "satmakon.github.io" }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.ok) {
+        setStatus("ok");
+        setTimeout(onClose, 1800);
+      } else {
+        setStatus("err");
+      }
+    } catch (_) {
+      setStatus("err");
+    }
+  };
+  const onBackdropClick = e => {
+    if (e.target === e.currentTarget) onClose();
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    className: "reg-backdrop",
+    onClick: onBackdropClick,
+    role: "dialog",
+    "aria-modal": "true"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "reg-card"
+  }, /*#__PURE__*/React.createElement("button", {
+    className: "reg-close",
+    onClick: onClose,
+    "aria-label": r.close,
+    type: "button"
+  }, "\u00d7"), /*#__PURE__*/React.createElement("h3", null, r.title), /*#__PURE__*/React.createElement("p", {
+    className: "reg-sub"
+  }, r.subtitle), /*#__PURE__*/React.createElement("form", {
+    onSubmit: submit
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "reg-field"
+  }, /*#__PURE__*/React.createElement("label", {
+    htmlFor: "reg-name"
+  }, r.nameLabel), /*#__PURE__*/React.createElement("input", {
+    id: "reg-name",
+    type: "text",
+    autoComplete: "name",
+    placeholder: r.namePh,
+    value: name,
+    onChange: e => setName(e.target.value),
+    required: true,
+    maxLength: 100
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "reg-field"
+  }, /*#__PURE__*/React.createElement("label", {
+    htmlFor: "reg-phone"
+  }, r.phoneLabel), /*#__PURE__*/React.createElement("input", {
+    id: "reg-phone",
+    type: "tel",
+    autoComplete: "tel",
+    placeholder: r.phonePh,
+    value: phone,
+    onChange: e => setPhone(e.target.value),
+    required: true,
+    maxLength: 40
+  })), /*#__PURE__*/React.createElement("button", {
+    className: "reg-submit",
+    type: "submit",
+    disabled: status === "sending" || status === "ok"
+  }, status === "sending" ? r.sending : r.submit), status === "ok" && /*#__PURE__*/React.createElement("div", {
+    className: "reg-msg ok"
+  }, r.success), status === "err" && /*#__PURE__*/React.createElement("div", {
+    className: "reg-msg err"
+  }, r.error))));
 }
 function Footer({
   t,
@@ -3033,6 +3227,9 @@ function App() {
   const [pickerOpen, setPickerOpen] = React.useState(false);
   const openPicker = React.useCallback(() => setPickerOpen(true), []);
   const closePicker = React.useCallback(() => setPickerOpen(false), []);
+  const [regOpen, setRegOpen] = React.useState(false);
+  const openReg = React.useCallback(() => setRegOpen(true), []);
+  const closeReg = React.useCallback(() => setRegOpen(false), []);
   const t = window.COPY[lang];
   return /*#__PURE__*/React.createElement("div", {
     className: "page"
@@ -3054,6 +3251,9 @@ function App() {
     t: t
   }), /*#__PURE__*/React.createElement(PricingSection, {
     t: t
+  }), /*#__PURE__*/React.createElement(FinalCTA, {
+    t: t,
+    onCtaClick: openReg
   }), /*#__PURE__*/React.createElement(FaqSection, {
     t: t
   }), /*#__PURE__*/React.createElement(Footer, {
@@ -3063,6 +3263,10 @@ function App() {
     open: pickerOpen,
     onClose: closePicker,
     t: t
+  }), /*#__PURE__*/React.createElement(RegisterModal, {
+    t: t,
+    open: regOpen,
+    onClose: closeReg
   }));
 }
 ReactDOM.createRoot(document.getElementById('root')).render(/*#__PURE__*/React.createElement(App, null));
