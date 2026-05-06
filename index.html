@@ -1075,15 +1075,16 @@ section.bg-gray { background: #F5F5F7; }
 .faq-a { max-height: 0; overflow: hidden; transition: max-height .3s, padding .3s; font-size: 15px; line-height: 1.65; color: #525768; }
 .faq-item.open .faq-a { max-height: 300px; padding: 0 0 22px; }
 
-/* ---- Final CTA ---- */
-.final-cta { background: linear-gradient(155deg, #8B5CF6 0%, #5B21B6 100%); color: #fff; text-align: center; border-radius: 32px; padding: 72px 24px; position: relative; overflow: hidden; }
-.final-cta::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at top, rgba(255,255,255,0.2), transparent 60%); pointer-events: none; }
-.final-cta h2 { font-family: var(--font-display); font-weight: 800; font-size: clamp(36px, 5vw, 60px); line-height: 1.02; letter-spacing: -0.035em; margin: 0 0 16px; position: relative; }
-.final-cta h2 .a { display: block; color: #E5FF4E; }
-.final-cta p { font-size: 17px; line-height: 1.55; opacity: 0.92; max-width: 520px; margin: 0 auto 32px; position: relative; }
-.final-cta .btn { background: #fff; color: #0B0B0F; padding: 18px 32px; font-size: 16px; font-weight: 700; position: relative; }
-.final-cta .btn:hover { transform: translateY(-2px); }
-.final-cta .small { font-size: 13px; opacity: 0.85; margin-top: 20px; position: relative; }
+/* ---- Final CTA (full-bleed purple section) ---- */
+.final-cta-section { background: linear-gradient(155deg, #8B5CF6 0%, #5B21B6 100%); color: #fff; text-align: center; padding: 96px 24px; position: relative; overflow: hidden; }
+.final-cta-section::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at top, rgba(255,255,255,0.2), transparent 60%); pointer-events: none; }
+.final-cta-inner { position: relative; max-width: 720px; margin: 0 auto; }
+.final-cta-section h2 { font-family: var(--font-display); font-weight: 800; font-size: clamp(36px, 5vw, 60px); line-height: 1.02; letter-spacing: -0.035em; margin: 0 0 16px; }
+.final-cta-section h2 .a { display: block; color: #E5FF4E; }
+.final-cta-section p { font-size: 17px; line-height: 1.55; opacity: 0.92; max-width: 520px; margin: 0 auto 32px; }
+.final-cta-section .btn { background: #fff; color: #0B0B0F; padding: 18px 32px; font-size: 16px; font-weight: 700; }
+.final-cta-section .btn:hover { transform: translateY(-2px); }
+.final-cta-section .small { font-size: 13px; opacity: 0.85; margin-top: 20px; }
 
 /* ---- Register modal (lead capture popup) ---- */
 .reg-backdrop {
@@ -1213,7 +1214,7 @@ section.bg-gray { background: #F5F5F7; }
   .price-card.recommended { transform: none; }
   .makonai-feats { grid-template-columns: 1fr; }
   .students-grid { grid-template-columns: 1fr 1fr; }
-  .final-cta { border-radius: 20px; padding: 48px 20px; }
+  .final-cta-section { padding: 64px 20px; }
 }
 @media (max-width: 560px) {
   .stats-row, .social-bar, .three-col, .feature-grid, .guarantee-grid, .path-grid, .testimonial-grid { grid-template-columns: 1fr; }
@@ -2888,10 +2889,10 @@ function FinalCTA({
   onCtaClick
 }) {
   const f = t.finalCTA;
-  return /*#__PURE__*/React.createElement("section", null, /*#__PURE__*/React.createElement("div", {
-    className: "container"
+  return /*#__PURE__*/React.createElement("section", {
+    className: "final-cta-section"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "final-cta"
+    className: "final-cta-inner"
   }, /*#__PURE__*/React.createElement("h2", null, f.h[0], " ", /*#__PURE__*/React.createElement("span", {
     className: "a"
   }, f.h[1])), /*#__PURE__*/React.createElement("p", null, f.sub), /*#__PURE__*/React.createElement("button", {
@@ -2899,7 +2900,7 @@ function FinalCTA({
     onClick: onCtaClick
   }, f.cta, " \u2192"), /*#__PURE__*/React.createElement("div", {
     className: "small"
-  }, f.social))));
+  }, f.social)));
 }
 function RegisterModal({
   t,
