@@ -2420,12 +2420,10 @@ function Students({
   t
 }) {
   const s = t.students;
-  const imgs1 = ['students/1-sogdiana.png', 'students/2-javohir.png', 'students/3-maral.png', 'students/4-madiyar.png', 'students/5-aiym.png'];
-  const imgs2 = ['students/6-samira.png', 'students/7-shirinabonu.png', 'students/8-jaleel.png', 'students/9-ayanat.png', 'students/10-shohjahon.png'];
-  const imgs3 = ['students/11-jafar.png', 'students/12-abduvosid.png', 'students/13-dinara.png', 'students/14-taisiia.png', 'students/15-mark.png', 'students/16-aisha-z.png', 'students/17-hung.png', 'students/18-aisha-y.png', 'students/19-damira.png', 'students/20-muhammadmirzo.png', 'students/21-kurmash.png'];
+  const imgs1 = ['students/1-sogdiana.png', 'students/2-javohir.png', 'students/3-maral.png', 'students/4-madiyar.png', 'students/5-aiym.png', 'students/11-jafar.png', 'students/12-abduvosid.png', 'students/13-dinara.png', 'students/14-taisiia.png', 'students/15-mark.png'];
+  const imgs2 = ['students/6-samira.png', 'students/7-shirinabonu.png', 'students/8-jaleel.png', 'students/9-ayanat.png', 'students/10-shohjahon.png', 'students/16-aisha-z.png', 'students/17-hung.png', 'students/18-aisha-y.png', 'students/19-damira.png', 'students/20-muhammadmirzo.png', 'students/21-kurmash.png'];
   const ref1 = useSwipeMarquee(false, 0.4);
   const ref2 = useSwipeMarquee(true, 0.36);
-  const ref3 = useSwipeMarquee(false, 0.32);
   const renderRow = (imgs, reverse, ref) => /*#__PURE__*/React.createElement("div", {
     className: "marquee-wrap"
   }, /*#__PURE__*/React.createElement("div", {
@@ -2466,7 +2464,7 @@ function Students({
   }, s.sub))), /*#__PURE__*/React.createElement("div", {
     className: "students-rows",
     "aria-label": "Student results"
-  }, renderRow(imgs1, false, ref1), renderRow(imgs2, true, ref2), renderRow(imgs3, false, ref3)));
+  }, renderRow(imgs1, false, ref1), renderRow(imgs2, true, ref2)));
 }
 function SocialProofBar({
   t
