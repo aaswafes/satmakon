@@ -335,6 +335,8 @@ section.bg-gray { background: #F5F5F7; }
 
 .nav-cta { background: #7C3AED; color: #fff; border: 0; padding: 10px 18px; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; letter-spacing: -0.005em; transition: background .15s; display: inline-flex; align-items: center; text-decoration: none; }
 .nav-cta:hover { background: #6D28D9; color: #fff; }
+.nav-cta-mock { background: #E5FF4E; color: #3B1A8A; border: 0; padding: 10px 18px; border-radius: 999px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit; letter-spacing: -0.005em; transition: background .15s, transform .15s; display: inline-flex; align-items: center; text-decoration: none; margin-left: 8px; }
+.nav-cta-mock:hover { background: #F1FF88; color: #3B1A8A; }
 
 .nav-mobile-toggle { display: none; }
 
@@ -344,6 +346,7 @@ section.bg-gray { background: #F5F5F7; }
 
 @media (max-width: 880px) {
   .nav-cta { display: none; }
+  .nav-cta-mock { display: none; }
   .nav-burger {
     display: block;
     background: transparent; border: 0; cursor: pointer;
@@ -423,6 +426,17 @@ section.bg-gray { background: #F5F5F7; }
     display: block; text-align: center; text-decoration: none;
   }
   .nav-mobile-cta:hover { background: #6D28D9; color: #fff; }
+  .nav-mobile-cta-mock {
+    margin-top: 10px; padding: 14px;
+    background: #E5FF4E; color: #3B1A8A;
+    border: 0; border-radius: 999px;
+    font-size: 15px; font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background .15s;
+    display: block; text-align: center; text-decoration: none;
+  }
+  .nav-mobile-cta-mock:hover { background: #F1FF88; color: #3B1A8A; }
 }
 
 /* ---- Shared ---- */
@@ -1456,7 +1470,7 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
 // naturally for each language. Formal register but energetic, not parent-plea.
 window.COPY = {
   uz: {
-    nav: { sat: "SAT tayyorlov", pricing: "Tariflar", faq: "Savollar", makonai: "makon.ai", location: "Manzil", cta: "Boshlash" },
+    nav: { sat: "SAT tayyorlov", pricing: "Tariflar", faq: "Savollar", makonai: "makon.ai", location: "Manzil", cta: "Boshlash", mock: "Bepul Mock" },
     hero: {
       badge: "1520+ SAT kafolati",
       h1a: "SATMakon —",
@@ -1639,7 +1653,7 @@ window.COPY = {
   },
 
   ru: {
-    nav: { sat: "SAT подготовка", pricing: "Тарифы", faq: "Вопросы", makonai: "makon.ai", location: "Адрес", cta: "Начать" },
+    nav: { sat: "SAT подготовка", pricing: "Тарифы", faq: "Вопросы", makonai: "makon.ai", location: "Адрес", cta: "Начать", mock: "Бесплатный Mock" },
     hero: {
       badge: "Гарантия 1520+ SAT",
       h1a: "SATMakon —",
@@ -1908,7 +1922,12 @@ function Nav({
     href: "https://t.me/satmakonn_bot",
     target: "_blank",
     rel: "noopener noreferrer"
-  }, t.nav.cta), /*#__PURE__*/React.createElement("button", {
+  }, t.nav.cta), /*#__PURE__*/React.createElement("a", {
+    className: "nav-cta-mock",
+    href: "https://makonbook-sat-itqub.ondigitalocean.app/sat/guest/",
+    target: "_blank",
+    rel: "noopener noreferrer"
+  }, t.nav.mock), /*#__PURE__*/React.createElement("button", {
     className: "nav-burger" + (menuOpen ? " open" : ""),
     onClick: () => setMenuOpen(!menuOpen),
     "aria-label": "Menu",
@@ -1952,7 +1971,13 @@ function Nav({
     target: "_blank",
     rel: "noopener noreferrer",
     onClick: close
-  }, t.nav.cta)));
+  }, t.nav.cta), /*#__PURE__*/React.createElement("a", {
+    className: "nav-mobile-cta-mock",
+    href: "https://makonbook-sat-itqub.ondigitalocean.app/sat/guest/",
+    target: "_blank",
+    rel: "noopener noreferrer",
+    onClick: close
+  }, t.nav.mock)));
 }
 function Hero({
   t
