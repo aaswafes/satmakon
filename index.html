@@ -2578,8 +2578,32 @@ function Teachers({
   t
 }) {
   const x = t.teachers;
-  const imgs = ['teachers/1-yoqubjon.jpg', 'teachers/2-farrukh.jpg', 'teachers/3-jamoliddin.jpg', 'teachers/4-sat.jpg', 'teachers/5-davronov.jpg'];
-  const ref = useSwipeMarquee(true, 0.36);
+  const imgs1 = ['teachers/1-yoqubjon.jpg', 'teachers/2-farrukh.jpg', 'teachers/3-jamoliddin.jpg', 'teachers/4-sat.jpg', 'teachers/5-davronov.jpg'];
+  const imgs2 = ['teachers/6-ustoz1.jpg', 'teachers/7-ustoz2.jpg', 'teachers/8-ustoz3.jpg'];
+  const ref1 = useSwipeMarquee(true, 0.36);
+  const ref2 = useSwipeMarquee(false, 0.4);
+  const renderRow = (imgs, reverse, ref) => {
+    const unit = imgs.length < 5 ? [...imgs, ...imgs, ...imgs] : imgs;
+    return /*#__PURE__*/React.createElement("div", {
+      className: "marquee-wrap"
+    }, /*#__PURE__*/React.createElement("div", {
+      ref: ref,
+      className: "students-marquee" + (reverse ? " rev" : "")
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "students-track"
+    }, [...unit, ...unit].map((src, i) => /*#__PURE__*/React.createElement("div", {
+      key: i,
+      className: "student-img-card",
+      "aria-hidden": i >= unit.length
+    }, /*#__PURE__*/React.createElement("img", {
+      src: src,
+      alt: "",
+      draggable: "false",
+      width: "600",
+      height: "750",
+      decoding: "async"
+    }))))));
+  };
   return /*#__PURE__*/React.createElement("section", null, /*#__PURE__*/React.createElement("div", {
     className: "container"
   }, /*#__PURE__*/React.createElement("div", {
@@ -2601,25 +2625,7 @@ function Teachers({
   }, x.sub))), /*#__PURE__*/React.createElement("div", {
     className: "students-rows",
     "aria-label": "Teachers"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "marquee-wrap"
-  }, /*#__PURE__*/React.createElement("div", {
-    ref: ref,
-    className: "students-marquee rev"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "students-track"
-  }, [...imgs, ...imgs].map((src, i) => /*#__PURE__*/React.createElement("div", {
-    key: i,
-    className: "student-img-card",
-    "aria-hidden": i >= imgs.length
-  }, /*#__PURE__*/React.createElement("img", {
-    src: src,
-    alt: "",
-    draggable: "false",
-    width: "600",
-    height: "750",
-    decoding: "async"
-  }))))))));
+  }, renderRow(imgs1, true, ref1), renderRow(imgs2, false, ref2)));
 }
 function Unis({
   t
