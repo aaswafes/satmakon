@@ -779,6 +779,14 @@ section.bg-gray { background: #F5F5F7; }
 @media (max-width: 560px) {
   .student-img-card { flex-basis: 220px; }
 }
+/* Teachers row — larger cards than students */
+.students-rows[aria-label="Teachers"] .student-img-card { flex-basis: 380px; }
+@media (max-width: 880px) {
+  .students-rows[aria-label="Teachers"] .student-img-card { flex-basis: 320px; }
+}
+@media (max-width: 560px) {
+  .students-rows[aria-label="Teachers"] .student-img-card { flex-basis: 260px; }
+}
 /* ---- Students (legacy synthetic cards — kept for reference, unused) ---- */
 .students-scroll { margin-top: 48px; }
 .students-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
