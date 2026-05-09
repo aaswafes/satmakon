@@ -827,7 +827,7 @@ section.bg-gray { background: #F5F5F7; }
 /* ---- Testimonials ---- */
 .testimonial-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 48px; }
 .testi {
-  background: #fff; border: 1px solid #E5E5EA; border-radius: 18px; padding: 20px 22px 18px;
+  background: #fff; border: 1px solid #E5E5EA; border-radius: 18px; padding: 26px;
   display: flex; flex-direction: column;
   transition: transform .25s cubic-bezier(.2,.7,.3,1), box-shadow .25s cubic-bezier(.2,.7,.3,1), border-color .25s cubic-bezier(.2,.7,.3,1);
 }
@@ -836,16 +836,16 @@ section.bg-gray { background: #F5F5F7; }
   box-shadow: 0 20px 48px rgba(17,17,20,0.08);
   border-color: #C4B5FD;
 }
-.testi .q { font-size: 14px; line-height: 1.55; color: #1F2430; margin: 12px 0 14px; flex: 1; }
-.testi .who { display: flex; align-items: center; gap: 10px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 12px; }
-.testi .avatar { width: 32px; height: 32px; border-radius: 999px; background: linear-gradient(135deg, #EDE9FE, #A78BFA); display: grid; place-items: center; font-weight: 700; color: #6D28D9; font-size: 12px; flex: 0 0 32px; }
+.testi .q { font-size: 15px; line-height: 1.6; color: #1F2430; margin: 16px 0 20px; flex: 1; }
+.testi .who { display: flex; align-items: center; gap: 12px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 16px; }
+.testi .avatar { width: 36px; height: 36px; border-radius: 999px; background: linear-gradient(135deg, #EDE9FE, #A78BFA); display: grid; place-items: center; font-weight: 700; color: #6D28D9; font-size: 13px; flex: 0 0 36px; }
 .testi .who-meta { min-width: 0; }
-.testi .name { font-weight: 700; font-size: 13px; color: #0B0B0F; }
-.testi .sub { font-size: 11px; color: #7C3AED; font-weight: 600; }
+.testi .name { font-weight: 700; font-size: 14px; color: #0B0B0F; }
+.testi .sub { font-size: 12px; color: #7C3AED; font-weight: 600; }
 
 /* Progress — plain inline text, no chip */
 .testi-progress {
-  display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px;
+  display: flex; align-items: baseline; gap: 6px;
   font-family: var(--font-display);
 }
 .testi-progress .tp-row { display: flex; align-items: baseline; gap: 6px; }
@@ -853,10 +853,6 @@ section.bg-gray { background: #F5F5F7; }
 .testi-progress .tp-arrow { font-size: 13px; color: #8A8F9C; font-weight: 600; }
 .testi-progress .tp-after { font-size: 20px; font-weight: 800; color: #0B0B0F; letter-spacing: -0.03em; }
 .testi-progress.is-ap .tp-after { color: #92400E; }
-.testi-progress .tp-delta {
-  font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
-  color: #16A34A;
-}
 
 /* Infinite marquee for testimonials (right-moving) */
 .testi-marquee-wrap {
@@ -2714,17 +2710,12 @@ function Testimonials({
   const items = x.items || [];
   const renderCard = (it, i, ariaHidden) => {
     const isAp = it.before === "AP";
-    const beforeNum = parseInt(it.before, 10);
-    const afterNum = parseInt(it.after, 10);
-    const delta = !isAp && Number.isFinite(beforeNum) && Number.isFinite(afterNum) ? afterNum - beforeNum : null;
     return /*#__PURE__*/React.createElement("div", {
       key: i,
       className: "testi",
       "aria-hidden": ariaHidden ? "true" : undefined
     }, /*#__PURE__*/React.createElement("div", {
       className: "testi-progress" + (isAp ? " is-ap" : "")
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "tp-row"
     }, /*#__PURE__*/React.createElement("span", {
       className: "tp-before"
     }, it.before), /*#__PURE__*/React.createElement("span", {
@@ -2732,9 +2723,7 @@ function Testimonials({
       "aria-hidden": "true"
     }, "→"), /*#__PURE__*/React.createElement("span", {
       className: "tp-after"
-    }, it.after)), delta !== null && /*#__PURE__*/React.createElement("span", {
-      className: "tp-delta"
-    }, "+", delta, " ball")), /*#__PURE__*/React.createElement("p", {
+    }, it.after)), /*#__PURE__*/React.createElement("p", {
       className: "q"
     }, "“", it.q, "”"), /*#__PURE__*/React.createElement("div", {
       className: "who"
