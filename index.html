@@ -290,6 +290,13 @@ section.bg-gray { background: #F5F5F7; }
   padding-right: 32px;
 }
 .loc-modal-options { display: flex; flex-direction: column; gap: 10px; }
+.loc-modal-foot {
+  margin: 18px 4px 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #525768;
+  text-align: center;
+}
 .loc-option {
   display: flex; align-items: center; gap: 14px;
   padding: 14px 16px;
@@ -1788,6 +1795,7 @@ window.COPY = {
         { name: "Navoiy filiali",                url: "https://maps.app.goo.gl/F6LmXdmfCEARyRbg9" },
       ],
       locationPickerTitle: "Qaysi filialga borasiz?",
+      locationPickerFoot: "Agar kelsangiz, darajangizni aniqlab, sizga mos guruhni tanlab beramiz.",
       phone: "+998 55 511 16 00",
       bot: "@satmakonn_bot",
       botUrl: "https://t.me/satmakonn_bot",
@@ -1989,6 +1997,7 @@ window.COPY = {
         { name: "Навои филиал",                    url: "https://maps.app.goo.gl/F6LmXdmfCEARyRbg9" },
       ],
       locationPickerTitle: "В какой филиал поедете?",
+      locationPickerFoot: "Если приедете — определим ваш уровень и подберём подходящую группу.",
       phone: "+998 55 511 16 00",
       bot: "@satmakonn_bot",
       botUrl: "https://t.me/satmakonn_bot",
@@ -3370,7 +3379,9 @@ function LocationPicker({
     className: "loc-option-name"
   }, loc.name), /*#__PURE__*/React.createElement("div", {
     className: "loc-option-link"
-  }, "Yandex Maps \u2197")))))));
+  }, "Yandex Maps \u2197"))))), f.locationPickerFoot && /*#__PURE__*/React.createElement("p", {
+    className: "loc-modal-foot"
+  }, f.locationPickerFoot)));
 }
 function App() {
   const [lang, setLang] = useLang();
