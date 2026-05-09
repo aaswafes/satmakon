@@ -899,9 +899,57 @@ section.bg-gray { background: #F5F5F7; }
 }
 
 /* ---- University logos ---- */
-.uni-logos { display: flex; align-items: center; justify-content: space-around; gap: 40px; flex-wrap: wrap; margin-top: 32px; opacity: 0.5; filter: grayscale(100%); }
-.uni-logos .uni { font-family: 'Times New Roman', serif; font-weight: 700; font-size: 18px; color: #0B0B0F; letter-spacing: 0.02em; }
-.uni-label { text-align: center; font-size: 13px; color: #8A8F9C; margin-top: 32px; font-weight: 500; }
+.uni-section { padding-top: 24px; padding-bottom: 56px; }
+.uni-label { text-align: center; font-size: 14px; color: #525768; margin-bottom: 28px; font-weight: 500; }
+
+.uni-marquee-wrap {
+  position: relative;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+.uni-marquee {
+  position: relative;
+  padding: 8px 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+  cursor: grab;
+}
+.uni-marquee::-webkit-scrollbar { display: none; }
+.uni-marquee.dragging { cursor: grabbing; user-select: none; }
+.uni-track {
+  display: flex;
+  align-items: center;
+  gap: 64px;
+  width: max-content;
+  will-change: transform;
+  padding: 0 32px;
+}
+.uni-logo {
+  flex: 0 0 auto;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  opacity: 0.7;
+  transition: opacity .2s ease;
+}
+.uni-logo:hover { opacity: 1; }
+.uni-logo img {
+  height: 100%;
+  width: auto;
+  max-width: 220px;
+  object-fit: contain;
+  display: block;
+  -webkit-user-select: none;
+  user-select: none;
+}
+@media (max-width: 720px) {
+  .uni-track { gap: 44px; }
+  .uni-logo { height: 48px; }
+  .uni-logo img { max-width: 160px; }
+}
 
 /* ---- Path to College ---- */
 .path-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-top: 56px; position: relative; }
@@ -1706,7 +1754,7 @@ window.COPY = {
       h: ["Bizning", "ustozlarimiz"],
       sub: "1500+ ball olgan, har bir o'quvchiga mukammallikni o'rgatadigan jamoa.",
     },
-    unis: { label: "O'quvchilarimiz o'qiydigan universitetlar" },
+    unis: { label: "O'quvchilarimiz top universitetlarga kirishdi" },
     path: {
       h: ["Universitetga", "yo'lingiz"],
       sub: "Yutuqli arizaning har bir ustunini qamrab olamiz.",
@@ -1908,7 +1956,7 @@ window.COPY = {
       h: ["Наши", "преподаватели"],
       sub: "Команда, которая сама набрала 1500+ и ведёт каждого ученика к высшему результату.",
     },
-    unis: { label: "Университеты, в которых учатся наши ученики" },
+    unis: { label: "Наши ученики поступили в топ-вузы" },
     path: {
       h: ["Ваш путь", "в университет"],
       sub: "Мы покрываем каждый столп успешной заявки.",
@@ -2870,29 +2918,39 @@ function Teachers({
 function Unis({
   t
 }) {
+  const logos = [
+    { src: "unis/harvard.png",   alt: "Harvard University" },
+    { src: "unis/yale.png",      alt: "Yale University" },
+    { src: "unis/princeton.png", alt: "Princeton University" },
+    { src: "unis/stanford.png",  alt: "Stanford University" },
+    { src: "unis/cambridge.png", alt: "University of Cambridge" },
+    { src: "unis/brown.png",     alt: "Brown University" },
+  ];
+  const marqueeRef = useSwipeMarquee(false, 0.35);
   return /*#__PURE__*/React.createElement("section", {
-    className: "tight"
+    className: "tight uni-section"
   }, /*#__PURE__*/React.createElement("div", {
     className: "container"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "uni-logos"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "uni"
-  }, "MIT"), /*#__PURE__*/React.createElement("div", {
-    className: "uni"
-  }, "HARVARD"), /*#__PURE__*/React.createElement("div", {
-    className: "uni"
-  }, "BERKELEY"), /*#__PURE__*/React.createElement("div", {
-    className: "uni"
-  }, "NYU"), /*#__PURE__*/React.createElement("div", {
-    className: "uni"
-  }, "UChicago"), /*#__PURE__*/React.createElement("div", {
-    className: "uni"
-  }, "CORNELL"), /*#__PURE__*/React.createElement("div", {
-    className: "uni"
-  }, "COLUMBIA")), /*#__PURE__*/React.createElement("div", {
     className: "uni-label"
-  }, t.unis.label)));
+  }, t.unis.label)), /*#__PURE__*/React.createElement("div", {
+    className: "uni-marquee-wrap"
+  }, /*#__PURE__*/React.createElement("div", {
+    ref: marqueeRef,
+    className: "uni-marquee"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "uni-track"
+  }, [...logos, ...logos].map((u, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    className: "uni-logo",
+    "aria-hidden": i >= logos.length ? "true" : undefined
+  }, /*#__PURE__*/React.createElement("img", {
+    src: u.src,
+    alt: i >= logos.length ? "" : u.alt,
+    draggable: "false",
+    loading: "lazy",
+    decoding: "async"
+  })))))));
 }
 function PathSection({
   t
@@ -3408,6 +3466,8 @@ function App() {
   }), /*#__PURE__*/React.createElement(Students, {
     t: t
   }), /*#__PURE__*/React.createElement(Testimonials, {
+    t: t
+  }), /*#__PURE__*/React.createElement(Unis, {
     t: t
   }), /*#__PURE__*/React.createElement(Teachers, {
     t: t
