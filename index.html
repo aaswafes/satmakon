@@ -827,7 +827,7 @@ section.bg-gray { background: #F5F5F7; }
 /* ---- Testimonials ---- */
 .testimonial-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 48px; }
 .testi {
-  background: #fff; border: 1px solid #E5E5EA; border-radius: 18px; padding: 26px;
+  background: #fff; border: 1px solid #E5E5EA; border-radius: 18px; padding: 22px 22px 20px;
   display: flex; flex-direction: column;
   transition: transform .25s cubic-bezier(.2,.7,.3,1), box-shadow .25s cubic-bezier(.2,.7,.3,1), border-color .25s cubic-bezier(.2,.7,.3,1);
 }
@@ -836,11 +836,75 @@ section.bg-gray { background: #F5F5F7; }
   box-shadow: 0 20px 48px rgba(17,17,20,0.08);
   border-color: #C4B5FD;
 }
-.testi .q { font-size: 15px; line-height: 1.6; color: #1F2430; margin: 0 0 20px; flex: 1; }
+.testi .q { font-size: 15px; line-height: 1.6; color: #1F2430; margin: 16px 0 20px; flex: 1; }
 .testi .who { display: flex; align-items: center; gap: 12px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 16px; }
-.testi .avatar { width: 36px; height: 36px; border-radius: 999px; background: linear-gradient(135deg, #EDE9FE, #A78BFA); display: grid; place-items: center; font-weight: 700; color: #6D28D9; font-size: 13px; }
+.testi .avatar { width: 36px; height: 36px; border-radius: 999px; background: linear-gradient(135deg, #EDE9FE, #A78BFA); display: grid; place-items: center; font-weight: 700; color: #6D28D9; font-size: 13px; flex: 0 0 36px; }
+.testi .who-meta { min-width: 0; }
 .testi .name { font-weight: 700; font-size: 14px; color: #0B0B0F; }
 .testi .sub { font-size: 12px; color: #7C3AED; font-weight: 600; }
+
+/* Progress chip — prominent score delta on each testimonial */
+.testi-progress {
+  display: inline-flex; flex-direction: column; align-items: flex-start; gap: 4px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #F5F3FF 0%, #EDE9FE 100%);
+  border: 1px solid #DDD6FE;
+  align-self: flex-start;
+}
+.testi-progress.is-ap {
+  background: linear-gradient(135deg, #FEF9C3 0%, #FDE68A 100%);
+  border-color: #FCD34D;
+}
+.testi-progress .tp-row { display: flex; align-items: baseline; gap: 8px; font-family: var(--font-display); }
+.testi-progress .tp-before { font-size: 18px; font-weight: 700; color: #8A8F9C; letter-spacing: -0.02em; }
+.testi-progress .tp-arrow { font-size: 16px; color: #7C3AED; font-weight: 700; }
+.testi-progress.is-ap .tp-arrow { color: #B45309; }
+.testi-progress .tp-after { font-size: 24px; font-weight: 900; color: #5B21B6; letter-spacing: -0.03em; }
+.testi-progress.is-ap .tp-after { color: #92400E; }
+.testi-progress .tp-delta {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+  color: #16A34A;
+}
+
+/* Infinite marquee for testimonials (right-moving) */
+.testi-marquee-wrap {
+  position: relative;
+  margin-top: 44px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+.testi-marquee {
+  display: flex;
+  width: max-content;
+}
+.testi-track {
+  display: flex;
+  gap: 18px;
+  width: max-content;
+  animation: testi-scroll-right 60s linear infinite;
+}
+.testi-marquee-wrap:hover .testi-track,
+.testi-marquee-wrap:focus-within .testi-track {
+  animation-play-state: paused;
+}
+.testi-marquee .testi {
+  flex: 0 0 360px;
+  max-width: 360px;
+}
+@keyframes testi-scroll-right {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+@media (max-width: 720px) {
+  .testi-marquee .testi { flex-basis: 300px; max-width: 300px; }
+  .testi-track { animation-duration: 50s; gap: 14px; }
+  .testi-progress .tp-after { font-size: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .testi-track { animation: none; }
+}
 
 /* ---- University logos ---- */
 .uni-logos { display: flex; align-items: center; justify-content: space-around; gap: 40px; flex-wrap: wrap; margin-top: 32px; opacity: 0.5; filter: grayscale(100%); }
@@ -1632,9 +1696,18 @@ window.COPY = {
     testimonials: {
       h: ["O'quvchilarimiz", "nima deydi"],
       items: [
-        { q: "Kichik guruh formati — o'yinni o'zgartirdi. O'qituvchim men qayerda qiynalayotganimni aniq bilardi va har darsni menga moslashtirardi. Tavsiya etaman.", by: "Noel A.", sub: "1280 → 1520" },
-        { q: "SAT Makon menga SAT ga to'g'ridan-to'g'ri yondashish uchun ishonch va ko'nikma berdi. Coaching va progress hisobotlari meni yo'ldan chiqarmadi.", by: "Aruzhan K.", sub: "1350 → 1540" },
-        { q: "Toshkentdan turib top universitetga kirishga ishonmagandim. SAT Makon strategiyalari va Kam akaning shaxsiy e'tibori tufayli NYU dan $35 000 stipendiya bilan oldim.", by: "Dilnoza T.", sub: "1310 → 1540 · NYU, New York" },
+        { q: "Kichik guruh formati — o'yinni o'zgartirdi. O'qituvchim men qayerda qiynalayotganimni aniq bilardi va har darsni menga moslashtirardi. Tavsiya etaman.", by: "Noel A.", before: "1280", after: "1520", uni: "" },
+        { q: "SAT Makon menga SAT ga to'g'ridan-to'g'ri yondashish uchun ishonch va ko'nikma berdi. Coaching va progress hisobotlari meni yo'ldan chiqarmadi.", by: "Aruzhan K.", before: "1350", after: "1540", uni: "" },
+        { q: "Toshkentdan turib top universitetga kirishga ishonmagandim. SAT Makon strategiyalari va Kam akaning shaxsiy e'tibori tufayli NYU dan $35 000 stipendiya bilan oldim.", by: "Dilnoza T.", before: "1310", after: "1540", uni: "NYU, New York" },
+        { q: "Math bo'yicha 720 dan 800 ga ko'tarildim — Kam akaning question-strategiyasi tufayli. Endi MITda Computer Science o'qiyman.", by: "Madiyar N.", before: "1380", after: "1560", uni: "MIT" },
+        { q: "Reading qismi yashirin dushmanim edi. 2 oylik intensiv mashg'ulotlar va weekly mock testlar meni 380 dan 770 gacha ko'tardi.", by: "Aiym A.", before: "1260", after: "1570", uni: "Cornell" },
+        { q: "Har hafta yangi mock test, har dushanba aniq tahlil. Bunday tartibli yo'nalishni boshqa hech qayerda ko'rmaganman.", by: "Shohjahon M.", before: "1180", after: "1490", uni: "Boston University" },
+        { q: "Birinchi mock'da 1100 oldim — yiqilib tushdim. 4 oydan keyin 1530. SAT Makon mehnatga tizim qo'shdi.", by: "Maral Y.", before: "1100", after: "1530", uni: "UChicago" },
+        { q: "AP Calculus BC dasturi sayqallangan. 5 ball oldim, universitetda birinchi yili matematikadan kredit oldim.", by: "Kurmash K.", before: "AP", after: "5/5", uni: "Berkeley" },
+        { q: "essay yordami va ariza strategiyasi — bu SAT'dan keyingi eng katta farq. Columbia'ga to'liq stipendiya bilan kirdim.", by: "Taisiia S.", before: "1420", after: "1590", uni: "Columbia" },
+        { q: "Onlayn formatda Nukusdan o'qidim. Hech qanday farq sezmadim — xuddi sinfda bo'lgandek e'tibor.", by: "Damira O.", before: "1240", after: "1500", uni: "NYU Abu Dhabi" },
+        { q: "Vokabular trenajori va AI tutor bilan har kuni 30 daqiqa — uch oyda Reading'da 250 ball oshdi.", by: "Anvarjon S.", before: "1300", after: "1530", uni: "" },
+        { q: "Kam aka shunchaki o'qituvchi emas — mentor. 1600 olishim mumkin deb hech kim aytmagan edi, u aytdi va men oldim.", by: "Muhammadmirzo X.", before: "1450", after: "1600", uni: "Stanford" },
       ],
     },
     teachers: {
@@ -1821,9 +1894,18 @@ window.COPY = {
     testimonials: {
       h: ["Что говорят", "наши ученики"],
       items: [
-        { q: "Формат маленькой группы — полная перемена. Преподаватель точно знал, где я застреваю, и подстраивал каждое занятие под меня. Рекомендую.", by: "Ноэль А.", sub: "1280 → 1520" },
-        { q: "SAT Makon дал мне уверенность и навыки идти на SAT в лоб. Коучинг и отчёты о прогрессе держали меня в фокусе.", by: "Аружан К.", sub: "1350 → 1540" },
-        { q: "Не верила, что из Ташкента можно поступить в топ-вуз. Стратегии SAT Makon и внимание Кам-ака привели меня в NYU со стипендией $35 000.", by: "Дилноза Т.", sub: "1310 → 1540 · NYU, Нью-Йорк" },
+        { q: "Формат маленькой группы — полная перемена. Преподаватель точно знал, где я застреваю, и подстраивал каждое занятие под меня. Рекомендую.", by: "Ноэль А.", before: "1280", after: "1520", uni: "" },
+        { q: "SAT Makon дал мне уверенность и навыки идти на SAT в лоб. Коучинг и отчёты о прогрессе держали меня в фокусе.", by: "Аружан К.", before: "1350", after: "1540", uni: "" },
+        { q: "Не верила, что из Ташкента можно поступить в топ-вуз. Стратегии SAT Makon и внимание Кам-ака привели меня в NYU со стипендией $35 000.", by: "Дилноза Т.", before: "1310", after: "1540", uni: "NYU, Нью-Йорк" },
+        { q: "Поднял Math с 720 до 800 — благодаря стратегии вопросов от Кам-ака. Сейчас учусь на Computer Science в MIT.", by: "Мадияр Н.", before: "1380", after: "1560", uni: "MIT" },
+        { q: "Reading был моим скрытым врагом. 2 месяца интенсива и weekly mock-тесты подняли меня с 380 до 770.", by: "Айым А.", before: "1260", after: "1570", uni: "Cornell" },
+        { q: "Каждую неделю — новый mock, каждый понедельник — детальный разбор. Такой системности я нигде больше не видел.", by: "Шохжахон М.", before: "1180", after: "1490", uni: "Boston University" },
+        { q: "На первом mock получила 1100 — упала духом. Через 4 месяца 1530. SAT Makon добавил системы к моему труду.", by: "Марал Е.", before: "1100", after: "1530", uni: "UChicago" },
+        { q: "Программа AP Calculus BC отшлифована до блеска. Получил 5, в универе на первом курсе уже зачли кредит по математике.", by: "Курмаш К.", before: "AP", after: "5/5", uni: "Berkeley" },
+        { q: "Помощь с эссе и стратегия подачи — самое большое отличие после SAT. Поступила в Columbia с полной стипендией.", by: "Таисия С.", before: "1420", after: "1590", uni: "Columbia" },
+        { q: "Училась онлайн из Нукуса. Никакой разницы — внимание как в очной группе.", by: "Дамира О.", before: "1240", after: "1500", uni: "NYU Abu Dhabi" },
+        { q: "Тренажёр лексики и AI-тутор — по 30 минут в день. За три месяца Reading вырос на 250 баллов.", by: "Анварджон С.", before: "1300", after: "1530", uni: "" },
+        { q: "Кам-ака не просто преподаватель — ментор. Никто не говорил мне, что я могу взять 1600. Он сказал — и я взял.", by: "Мухаммадмирзо Х.", before: "1450", after: "1600", uni: "Stanford" },
       ],
     },
     teachers: {
@@ -2259,9 +2341,10 @@ function ApSection({
   t
 }) {
   const s = t.apSec;
-  const gridRef = usePopInSection('ap');
+  const sectionRef = usePopInSection('ap');
   return /*#__PURE__*/React.createElement("section", {
     id: "ap",
+    ref: sectionRef,
     style: {
       paddingTop: 96,
       paddingBottom: 96
@@ -2269,12 +2352,13 @@ function ApSection({
   }, /*#__PURE__*/React.createElement("div", {
     className: "container"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "eyebrow-pill"
+    className: "eyebrow-pill pop-in"
   }, s.eyebrow), /*#__PURE__*/React.createElement("h2", {
-    className: "h-section",
+    className: "h-section pop-in",
     style: {
       marginTop: 16,
-      maxWidth: 900
+      maxWidth: 900,
+      '--pop-delay': '60ms'
     }
   }, s.h[0], " ", /*#__PURE__*/React.createElement("span", {
     className: "a",
@@ -2282,20 +2366,20 @@ function ApSection({
       display: 'inline'
     }
   }, s.h[1])), /*#__PURE__*/React.createElement("p", {
-    className: "sub",
+    className: "sub pop-in",
     style: {
       marginTop: 20,
       maxWidth: 820,
-      fontSize: 16
+      fontSize: 16,
+      '--pop-delay': '120ms'
     }
   }, s.body), /*#__PURE__*/React.createElement("div", {
-    className: "three-col",
-    ref: gridRef
+    className: "three-col"
   }, s.cards.map((c, i) => /*#__PURE__*/React.createElement("div", {
     key: i,
     className: "info-card pop-in",
     style: {
-      '--pop-delay': `${i * 20}ms`
+      '--pop-delay': `${180 + i * 110}ms`
     }
   }, /*#__PURE__*/React.createElement("div", {
     className: "num"
@@ -2635,14 +2719,55 @@ function Testimonials({
   t
 }) {
   const x = t.testimonials;
+  const sectionRef = usePopInSection('testimonials');
+  const items = x.items || [];
+  const renderCard = (it, i, ariaHidden) => {
+    const isAp = it.before === "AP";
+    const beforeNum = parseInt(it.before, 10);
+    const afterNum = parseInt(it.after, 10);
+    const delta = !isAp && Number.isFinite(beforeNum) && Number.isFinite(afterNum) ? afterNum - beforeNum : null;
+    return /*#__PURE__*/React.createElement("div", {
+      key: i,
+      className: "testi",
+      "aria-hidden": ariaHidden ? "true" : undefined
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "testi-progress" + (isAp ? " is-ap" : "")
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "tp-row"
+    }, /*#__PURE__*/React.createElement("span", {
+      className: "tp-before"
+    }, it.before), /*#__PURE__*/React.createElement("span", {
+      className: "tp-arrow",
+      "aria-hidden": "true"
+    }, "→"), /*#__PURE__*/React.createElement("span", {
+      className: "tp-after"
+    }, it.after)), delta !== null && /*#__PURE__*/React.createElement("span", {
+      className: "tp-delta"
+    }, "+", delta, " ball")), /*#__PURE__*/React.createElement("p", {
+      className: "q"
+    }, "“", it.q, "”"), /*#__PURE__*/React.createElement("div", {
+      className: "who"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "avatar"
+    }, it.by.split(' ').map(s => s[0]).join('')), /*#__PURE__*/React.createElement("div", {
+      className: "who-meta"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "name"
+    }, it.by), it.uni && /*#__PURE__*/React.createElement("div", {
+      className: "sub"
+    }, it.uni))));
+  };
   return /*#__PURE__*/React.createElement("section", {
-    className: "bg-gray"
+    className: "bg-gray",
+    id: "testimonials",
+    ref: sectionRef
   }, /*#__PURE__*/React.createElement("div", {
     className: "container"
   }, /*#__PURE__*/React.createElement("div", {
     style: {
       textAlign: 'center'
-    }
+    },
+    className: "pop-in"
   }, /*#__PURE__*/React.createElement("h2", {
     className: "h-section"
   }, x.h[0], " ", /*#__PURE__*/React.createElement("span", {
@@ -2650,22 +2775,16 @@ function Testimonials({
     style: {
       display: 'inline'
     }
-  }, x.h[1]))), /*#__PURE__*/React.createElement("div", {
-    className: "testimonial-grid"
-  }, x.items.map((it, i) => /*#__PURE__*/React.createElement("div", {
-    key: i,
-    className: "testi"
-  }, /*#__PURE__*/React.createElement("p", {
-    className: "q"
-  }, "\"", it.q, "\""), /*#__PURE__*/React.createElement("div", {
-    className: "who"
+  }, x.h[1])))), /*#__PURE__*/React.createElement("div", {
+    className: "testi-marquee-wrap pop-in",
+    style: {
+      '--pop-delay': '120ms'
+    }
   }, /*#__PURE__*/React.createElement("div", {
-    className: "avatar"
-  }, it.by.split(' ').map(s => s[0]).join('')), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
-    className: "name"
-  }, it.by), /*#__PURE__*/React.createElement("div", {
-    className: "sub"
-  }, it.sub))))))));
+    className: "testi-marquee"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "testi-track"
+  }, items.map((it, i) => renderCard(it, i, false)), items.map((it, i) => renderCard(it, "dup-" + i, true))))));
 }
 function Teachers({
   t
@@ -2784,9 +2903,11 @@ function PricingSection({
   t
 }) {
   const p = t.pricing;
+  const sectionRef = usePopInSection('pricing');
   return /*#__PURE__*/React.createElement("section", {
     className: "bg-gray",
-    id: "pricing"
+    id: "pricing",
+    ref: sectionRef
   }, /*#__PURE__*/React.createElement("div", {
     className: "container"
   }, /*#__PURE__*/React.createElement("div", {
@@ -2794,24 +2915,33 @@ function PricingSection({
       textAlign: 'center'
     }
   }, /*#__PURE__*/React.createElement("div", {
-    className: "eyebrow-pill",
+    className: "eyebrow-pill pop-in",
     style: {
       marginBottom: 16
     }
   }, p.eyebrow), /*#__PURE__*/React.createElement("h2", {
-    className: "h-section"
+    className: "h-section pop-in",
+    style: {
+      '--pop-delay': '70ms'
+    }
   }, p.h[0], " ", /*#__PURE__*/React.createElement("span", {
     className: "a",
     style: {
       display: 'inline'
     }
   }, p.h[1])), /*#__PURE__*/React.createElement("p", {
-    className: "pricing-note"
+    className: "pricing-note pop-in",
+    style: {
+      '--pop-delay': '140ms'
+    }
   }, p.note)), /*#__PURE__*/React.createElement("div", {
     className: "course-grid"
   }, p.courses.map((c, i) => /*#__PURE__*/React.createElement("div", {
     key: i,
-    className: "course-card"
+    className: "course-card pop-in",
+    style: {
+      '--pop-delay': `${200 + i * 120}ms`
+    }
   }, /*#__PURE__*/React.createElement("div", {
     className: "course-head"
   }, /*#__PURE__*/React.createElement("div", {
