@@ -928,18 +928,17 @@ section.bg-gray { background: #F5F5F7; }
   padding: 0 32px;
 }
 .uni-logo {
-  flex: 0 0 auto;
-  height: 64px;
-  display: grid;
-  place-items: center;
+  flex: 0 0 220px;
+  width: 220px;
+  height: 80px;
+  display: block;
   opacity: 0.7;
   transition: opacity .2s ease;
 }
 .uni-logo:hover { opacity: 1; }
 .uni-logo img {
+  width: 100%;
   height: 100%;
-  width: auto;
-  max-width: 220px;
   object-fit: contain;
   display: block;
   -webkit-user-select: none;
@@ -947,8 +946,7 @@ section.bg-gray { background: #F5F5F7; }
 }
 @media (max-width: 720px) {
   .uni-track { gap: 44px; }
-  .uni-logo { height: 48px; }
-  .uni-logo img { max-width: 160px; }
+  .uni-logo { flex-basis: 160px; width: 160px; height: 60px; }
 }
 
 /* ---- Path to College ---- */
