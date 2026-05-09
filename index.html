@@ -756,7 +756,9 @@ section.bg-gray { background: #F5F5F7; }
   display: flex;
   gap: 16px;
   width: max-content;
-  will-change: transform;
+  will-change: scroll-position;
+  contain: layout paint;
+  transform: translateZ(0);
 }
 @media (prefers-reduced-motion: reduce) {
   .students-marquee .students-track { animation: none; }
@@ -886,7 +888,9 @@ section.bg-gray { background: #F5F5F7; }
   display: flex;
   gap: 18px;
   width: max-content;
-  will-change: transform;
+  will-change: scroll-position;
+  contain: layout paint;
+  transform: translateZ(0);
 }
 .testi-marquee .testi {
   flex: 0 0 360px;
@@ -931,7 +935,9 @@ section.uni-section {
   align-items: center;
   gap: 64px;
   width: max-content;
-  will-change: transform;
+  will-change: scroll-position;
+  contain: layout paint;
+  transform: translateZ(0);
   padding: 0 32px;
 }
 .uni-logo {
@@ -2580,32 +2586,42 @@ function useSwipeMarquee(reverse, speed) {
     let raf = 0;
     let accumulator = 0;
     let suppressScrollWrap = false;
-    const halfWidth = () => el.scrollWidth / 2;
+    let isHovered = false;
+    let isOnscreen = true;
+    let cachedHalf = 0;
     // Modulo that handles negatives correctly: result is always in [0, m)
     const wrap = (n, m) => ((n % m) + m) % m;
+    // Cache halfWidth — scrollWidth reads force layout, expensive to do every frame
+    const recomputeHalf = () => {
+      cachedHalf = el.scrollWidth / 2;
+    };
     // Keep scrollLeft inside [0, half) — visually identical to anywhere in [half, 2*half) thanks to the duplicated track
     const wrapScroll = () => {
-      const half = halfWidth();
-      if (half <= 0) return;
+      if (cachedHalf <= 0) return;
       const cur = el.scrollLeft;
-      if (cur >= half || cur < 0) {
+      if (cur >= cachedHalf || cur < 0) {
         suppressScrollWrap = true;
-        el.scrollLeft = wrap(cur, half);
+        el.scrollLeft = wrap(cur, cachedHalf);
       }
     };
 
     // For reverse, start scrolled past so decrementing has room
     const initScroll = () => {
-      const half = halfWidth();
-      if (half > 0) {
+      recomputeHalf();
+      if (cachedHalf > 0) {
         suppressScrollWrap = true;
-        el.scrollLeft = reverse ? half - 1 : 0;
+        el.scrollLeft = reverse ? cachedHalf - 1 : 0;
       }
     };
-    if (el.querySelectorAll('img')[0]?.complete) initScroll();else el.addEventListener('load', initScroll, {
-      capture: true,
-      once: true
+    const imgs = el.querySelectorAll('img');
+    if (imgs[0]?.complete) initScroll();
+    imgs.forEach(img => {
+      if (!img.complete) img.addEventListener('load', recomputeHalf, { once: true });
     });
+    if (!imgs.length) initScroll();
+    // Refresh on container resize (font load, layout shifts, etc.)
+    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(recomputeHalf) : null;
+    if (ro) ro.observe(el);
     const bumpUserPause = (ms = 800) => {
       userPaused = true;
       if (pauseTimer) clearTimeout(pauseTimer);
@@ -2623,12 +2639,12 @@ function useSwipeMarquee(reverse, speed) {
     const onPointerMove = e => {
       if (!isDragging) return;
       const x = e.touches ? e.touches[0].pageX : e.pageX;
-      const half = halfWidth();
       let next = dragScrollStart - (x - dragStartX);
-      if (half > 0) next = wrap(next, half);
+      if (cachedHalf > 0) next = wrap(next, cachedHalf);
       suppressScrollWrap = true;
       el.scrollLeft = next;
     };
+    const onMouseEnter = () => { isHovered = true; };
     const onPointerUp = () => {
       if (!isDragging) return;
       isDragging = false;
@@ -2636,6 +2652,7 @@ function useSwipeMarquee(reverse, speed) {
       bumpUserPause(800);
     };
     const onMouseLeave = () => {
+      isHovered = false;
       // End drag if active, but DO NOT pause drift for plain hover-out
       if (isDragging) {
         isDragging = false;
@@ -2659,6 +2676,7 @@ function useSwipeMarquee(reverse, speed) {
     el.addEventListener('mousedown', onPointerDown);
     el.addEventListener('mousemove', onPointerMove);
     el.addEventListener('mouseup', onPointerUp);
+    el.addEventListener('mouseenter', onMouseEnter);
     el.addEventListener('mouseleave', onMouseLeave);
     el.addEventListener('touchstart', onPointerDown, {
       passive: true
@@ -2674,14 +2692,13 @@ function useSwipeMarquee(reverse, speed) {
       passive: true
     });
     const tick = () => {
-      if (!userPaused && !el.matches(':hover')) {
+      if (!userPaused && !isHovered && isOnscreen) {
         const dir = reverse ? -1 : 1;
         accumulator += speed * dir;
         const intPart = Math.trunc(accumulator);
         if (intPart !== 0) {
-          const half = halfWidth();
-          if (half > 0) {
-            const next = wrap(el.scrollLeft + intPart, half);
+          if (cachedHalf > 0) {
+            const next = wrap(el.scrollLeft + intPart, cachedHalf);
             suppressScrollWrap = true;
             el.scrollLeft = next;
           }
@@ -2690,13 +2707,21 @@ function useSwipeMarquee(reverse, speed) {
       }
       raf = requestAnimationFrame(tick);
     };
+    // Pause auto-drift when off-screen so 6 marquees don't fight for frame budget
+    const io = typeof IntersectionObserver !== 'undefined' ? new IntersectionObserver((entries) => {
+      isOnscreen = entries[0].isIntersecting;
+    }, { rootMargin: '200px' }) : null;
+    if (io) io.observe(el);
     raf = requestAnimationFrame(tick);
     return () => {
       cancelAnimationFrame(raf);
       if (pauseTimer) clearTimeout(pauseTimer);
+      if (ro) ro.disconnect();
+      if (io) io.disconnect();
       el.removeEventListener('mousedown', onPointerDown);
       el.removeEventListener('mousemove', onPointerMove);
       el.removeEventListener('mouseup', onPointerUp);
+      el.removeEventListener('mouseenter', onMouseEnter);
       el.removeEventListener('mouseleave', onMouseLeave);
       el.removeEventListener('touchstart', onPointerDown);
       el.removeEventListener('touchmove', onPointerMove);
