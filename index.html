@@ -426,7 +426,7 @@ section.bg-gray { background: #F5F5F7; }
     cursor: pointer;
     font-family: inherit;
     transition: background .15s;
-    display: block; text-align: center; text-decoration: none;
+    display: block; width: 100%; text-align: center; text-decoration: none;
   }
   .nav-mobile-cta:hover { background: #6D28D9; color: #fff; }
   .nav-mobile-cta-mock {
@@ -2020,7 +2020,8 @@ function useLang() {
 function Nav({
   lang,
   setLang,
-  openPicker
+  openPicker,
+  openReg
 }) {
   const t = window.COPY[lang];
   const [menuOpen, setMenuOpen] = useState(false);
@@ -2090,11 +2091,10 @@ function Nav({
     onClick: () => setLang('ru')
   }, "\u0420\u0443\u0441\u0441\u043A\u0438\u0439")), /*#__PURE__*/React.createElement("div", {
     className: "nav-cta-group"
-  }, /*#__PURE__*/React.createElement("a", {
+  }, /*#__PURE__*/React.createElement("button", {
+    type: "button",
     className: "nav-cta",
-    href: "https://t.me/satmakonn_bot",
-    target: "_blank",
-    rel: "noopener noreferrer"
+    onClick: () => openReg && openReg()
   }, t.nav.cta), /*#__PURE__*/React.createElement("a", {
     className: "nav-cta-mock",
     href: "https://makonbook-sat-itqub.ondigitalocean.app/sat/guest/",
@@ -2138,12 +2138,13 @@ function Nav({
       setLang('ru');
       close();
     }
-  }, "\u0420\u0443\u0441\u0441\u043A\u0438\u0439")), /*#__PURE__*/React.createElement("a", {
+  }, "\u0420\u0443\u0441\u0441\u043A\u0438\u0439")), /*#__PURE__*/React.createElement("button", {
+    type: "button",
     className: "nav-mobile-cta",
-    href: "https://t.me/satmakonn_bot",
-    target: "_blank",
-    rel: "noopener noreferrer",
-    onClick: close
+    onClick: () => {
+      close();
+      openReg && openReg();
+    }
   }, t.nav.cta), /*#__PURE__*/React.createElement("a", {
     className: "nav-mobile-cta-mock",
     href: "https://makonbook-sat-itqub.ondigitalocean.app/sat/guest/",
@@ -3355,7 +3356,8 @@ function App() {
   }, /*#__PURE__*/React.createElement(Nav, {
     lang: lang,
     setLang: setLang,
-    openPicker: openPicker
+    openPicker: openPicker,
+    openReg: openReg
   }), /*#__PURE__*/React.createElement(Hero, {
     t: t
   }), /*#__PURE__*/React.createElement(SatSection, {
