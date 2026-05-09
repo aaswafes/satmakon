@@ -899,8 +899,15 @@ section.bg-gray { background: #F5F5F7; }
 }
 
 /* ---- University logos ---- */
-.uni-section { padding-top: 24px; padding-bottom: 56px; }
-.uni-label { text-align: center; font-size: 14px; color: #525768; margin-bottom: 28px; font-weight: 500; }
+section.uni-section {
+  padding: 36px 0 28px;
+  margin-top: -56px;
+  margin-bottom: -64px;
+  position: relative;
+  z-index: 1;
+  background: #fff;
+}
+.uni-label { text-align: center; font-size: 14px; color: #525768; margin-bottom: 22px; font-weight: 500; }
 
 .uni-marquee-wrap {
   position: relative;
@@ -2926,7 +2933,7 @@ function Unis({
   ];
   const marqueeRef = useSwipeMarquee(false, 0.35);
   return /*#__PURE__*/React.createElement("section", {
-    className: "tight uni-section"
+    className: "uni-section"
   }, /*#__PURE__*/React.createElement("div", {
     className: "container"
   }, /*#__PURE__*/React.createElement("div", {
