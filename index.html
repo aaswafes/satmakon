@@ -2919,7 +2919,8 @@ function PathSection({
   }, st.s), /*#__PURE__*/React.createElement("p", null, st.b))))));
 }
 function PricingSection({
-  t
+  t,
+  openPicker
 }) {
   const p = t.pricing;
   const sectionRef = usePopInSection('pricing');
@@ -2980,11 +2981,10 @@ function PricingSection({
     className: "tier-label"
   }, tr.label), /*#__PURE__*/React.createElement("div", {
     className: "tier-price"
-  }, tr.price, /*#__PURE__*/React.createElement("span", null, p.per))))), /*#__PURE__*/React.createElement("a", {
+  }, tr.price, /*#__PURE__*/React.createElement("span", null, p.per))))), /*#__PURE__*/React.createElement("button", {
+    type: "button",
     className: "p-cta",
-    href: "https://t.me/satmakonn_bot",
-    target: "_blank",
-    rel: "noopener noreferrer"
+    onClick: () => openPicker && openPicker()
   }, p.enroll)))), /*#__PURE__*/React.createElement("div", {
     className: "pricing-foot"
   }, p.foot)));
@@ -3401,7 +3401,8 @@ function App() {
   }), /*#__PURE__*/React.createElement(Teachers, {
     t: t
   }), /*#__PURE__*/React.createElement(PricingSection, {
-    t: t
+    t: t,
+    openPicker: openPicker
   }), /*#__PURE__*/React.createElement(FinalCTA, {
     t: t,
     onCtaClick: openReg
