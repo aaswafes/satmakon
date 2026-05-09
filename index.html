@@ -2521,12 +2521,28 @@ function useSwipeMarquee(reverse, speed) {
     let dragScrollStart = 0;
     let raf = 0;
     let accumulator = 0;
+    let suppressScrollWrap = false;
     const halfWidth = () => el.scrollWidth / 2;
+    // Modulo that handles negatives correctly: result is always in [0, m)
+    const wrap = (n, m) => ((n % m) + m) % m;
+    // Keep scrollLeft inside [0, half) — visually identical to anywhere in [half, 2*half) thanks to the duplicated track
+    const wrapScroll = () => {
+      const half = halfWidth();
+      if (half <= 0) return;
+      const cur = el.scrollLeft;
+      if (cur >= half || cur < 0) {
+        suppressScrollWrap = true;
+        el.scrollLeft = wrap(cur, half);
+      }
+    };
 
     // For reverse, start scrolled past so decrementing has room
     const initScroll = () => {
       const half = halfWidth();
-      if (half > 0) el.scrollLeft = reverse ? half : 0;
+      if (half > 0) {
+        suppressScrollWrap = true;
+        el.scrollLeft = reverse ? half - 1 : 0;
+      }
     };
     if (el.querySelectorAll('img')[0]?.complete) initScroll();else el.addEventListener('load', initScroll, {
       capture: true,
@@ -2549,7 +2565,11 @@ function useSwipeMarquee(reverse, speed) {
     const onPointerMove = e => {
       if (!isDragging) return;
       const x = e.touches ? e.touches[0].pageX : e.pageX;
-      el.scrollLeft = dragScrollStart - (x - dragStartX);
+      const half = halfWidth();
+      let next = dragScrollStart - (x - dragStartX);
+      if (half > 0) next = wrap(next, half);
+      suppressScrollWrap = true;
+      el.scrollLeft = next;
     };
     const onPointerUp = () => {
       if (!isDragging) return;
@@ -2570,6 +2590,14 @@ function useSwipeMarquee(reverse, speed) {
       // Vertical wheel = user is scrolling the page, don't pause horizontal drift.
       if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) bumpUserPause(800);
     };
+    const onScroll = () => {
+      // Skip wrap for scroll events we triggered ourselves to avoid jitter
+      if (suppressScrollWrap) {
+        suppressScrollWrap = false;
+        return;
+      }
+      wrapScroll();
+    };
     el.addEventListener('mousedown', onPointerDown);
     el.addEventListener('mousemove', onPointerMove);
     el.addEventListener('mouseup', onPointerUp);
@@ -2584,6 +2612,9 @@ function useSwipeMarquee(reverse, speed) {
     el.addEventListener('wheel', onWheel, {
       passive: true
     });
+    el.addEventListener('scroll', onScroll, {
+      passive: true
+    });
     const tick = () => {
       if (!userPaused && !el.matches(':hover')) {
         const dir = reverse ? -1 : 1;
@@ -2592,8 +2623,8 @@ function useSwipeMarquee(reverse, speed) {
         if (intPart !== 0) {
           const half = halfWidth();
           if (half > 0) {
-            let next = el.scrollLeft + intPart;
-            if (!reverse && next >= half) next -= half;else if (reverse && next <= 0) next += half;
+            const next = wrap(el.scrollLeft + intPart, half);
+            suppressScrollWrap = true;
             el.scrollLeft = next;
           }
           accumulator -= intPart;
@@ -2613,6 +2644,7 @@ function useSwipeMarquee(reverse, speed) {
       el.removeEventListener('touchmove', onPointerMove);
       el.removeEventListener('touchend', onPointerUp);
       el.removeEventListener('wheel', onWheel);
+      el.removeEventListener('scroll', onScroll);
     };
   }, [reverse, speed]);
   return ref;
